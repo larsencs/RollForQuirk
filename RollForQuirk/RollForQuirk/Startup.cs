@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using RollForQuirk.Repositories;
 
 namespace RollForQuirk
 {
@@ -29,7 +30,13 @@ namespace RollForQuirk
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddTransient<IAlignmentRepository, AlignmentRepository>();
+            services.AddTransient<IProfessionRepository, ProfessionRepository>();
+            services.AddTransient<IRaceRepository, RaceRepository>();
+            services.AddTransient<ITraitRepository, TraitRepository>();
+            services.AddTransient<IUserProfileRepository, UserProfileRepository>();
+            services.AddTransient<ICharacterRepository, CharacterRepository>();
+            
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
             services
@@ -72,6 +79,8 @@ namespace RollForQuirk
                     { securitySchema, new[] { "Bearer"} }
                 });
             });
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
