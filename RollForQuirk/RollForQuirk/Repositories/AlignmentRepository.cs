@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RollForQuirk.Repositories
 {
-    public class AlignmentRepository : BaseRepository
+    public class AlignmentRepository : BaseRepository, IAlignmentRepository
     {
         public AlignmentRepository(IConfiguration configuration) : base(configuration)
         {
@@ -27,11 +27,11 @@ namespace RollForQuirk.Repositories
                     {
                         while (reader.Read())
                         {
-                            var alignment = new Alignment() 
-                            
+                            var alignment = new Alignment()
+
                             {
-                                Id=reader.GetInt32(reader.GetOrdinal("Id")),
-                                CharacterAlignment=reader.GetString(reader.GetOrdinal("CharacterAlignment"))
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                CharacterAlignment = reader.GetString(reader.GetOrdinal("CharacterAlignment"))
                             };
                             alignments.Add(alignment);
                         }
@@ -39,7 +39,7 @@ namespace RollForQuirk.Repositories
                 }
             }
 
-                return alignments;
+            return alignments;
         }
 
         public Alignment GetAlignmentById(int id)
@@ -60,10 +60,10 @@ namespace RollForQuirk.Repositories
 
                     if (reader.Read())
                     {
-                        var alignment = new Alignment() 
+                        var alignment = new Alignment()
                         {
-                            Id=reader.GetInt32(reader.GetOrdinal("Id")),
-                            CharacterAlignment=reader.GetString(reader.GetOrdinal("CharacterAlignment"))
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            CharacterAlignment = reader.GetString(reader.GetOrdinal("CharacterAlignment"))
                         };
 
                         return alignment;

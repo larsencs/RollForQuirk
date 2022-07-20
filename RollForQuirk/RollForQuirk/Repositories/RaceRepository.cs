@@ -4,18 +4,18 @@ using System.Collections.Generic;
 
 namespace RollForQuirk.Repositories
 {
-    public class RaceRepository : BaseRepository
+    public class RaceRepository : BaseRepository, IRaceRepository
     {
         public RaceRepository(IConfiguration configuration) : base(configuration)
         {
         }
 
         public List<Race> GetAllRaces()
-        { 
+        {
             var races = new List<Race>();
 
             using (var conn = Connection)
-            { 
+            {
                 conn.Open();
 
                 using (var cmd = conn.CreateCommand())
@@ -27,10 +27,10 @@ namespace RollForQuirk.Repositories
                     {
                         while (reader.Read())
                         {
-                            var race = new Race() 
+                            var race = new Race()
                             {
-                                Id=reader.GetInt32(reader.GetOrdinal("Id")),
-                                CharacterRace=reader.GetString(reader.GetOrdinal("CharacterRace"))
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                CharacterRace = reader.GetString(reader.GetOrdinal("CharacterRace"))
                             };
 
                             races.Add(race);
@@ -39,7 +39,7 @@ namespace RollForQuirk.Repositories
                 }
             }
 
-                return races;
+            return races;
         }
 
         public Race GetRaceById(int id)
@@ -60,11 +60,11 @@ namespace RollForQuirk.Repositories
                     var reader = cmd.ExecuteReader();
 
                     if (reader.Read())
-                    { 
-                        var race = new Race() 
+                    {
+                        var race = new Race()
                         {
-                            Id=reader.GetInt32(reader.GetOrdinal("Id")),
-                            CharacterRace=reader.GetString(reader.GetOrdinal("CharacterRace"))
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            CharacterRace = reader.GetString(reader.GetOrdinal("CharacterRace"))
                         };
 
                         return race;

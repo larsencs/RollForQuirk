@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RollForQuirk.Repositories
 {
-    public class ProfessionRepository : BaseRepository
+    public class ProfessionRepository : BaseRepository, IProfessionRepository
     {
         public ProfessionRepository(IConfiguration configuration) : base(configuration)
         {

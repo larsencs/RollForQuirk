@@ -3,7 +3,7 @@ using RollForQuirk.Models;
 
 namespace RollForQuirk.Repositories
 {
-    public class UserProfileRepository : BaseRepository
+    public class UserProfileRepository : BaseRepository, IUserProfileRepository
     {
         public UserProfileRepository(IConfiguration configuration) : base(configuration)
         {
@@ -26,12 +26,12 @@ namespace RollForQuirk.Repositories
                     var reader = cmd.ExecuteReader();
 
                     if (reader.Read())
-                    { 
-                        var userProfile = new UserProfile() 
+                    {
+                        var userProfile = new UserProfile()
                         {
-                            Id=reader.GetInt32(reader.GetOrdinal("Id")),
-                            Email=reader.GetString(reader.GetOrdinal("Email")),
-                            FirebaseId=reader.GetString(reader.GetOrdinal("FirebaseId"))
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Email = reader.GetString(reader.GetOrdinal("Email")),
+                            FirebaseId = reader.GetString(reader.GetOrdinal("FirebaseId"))
                         };
 
                         return userProfile;
