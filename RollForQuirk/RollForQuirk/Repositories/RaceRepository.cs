@@ -10,9 +10,9 @@ namespace RollForQuirk.Repositories
         {
         }
 
-        public List<Profession> GetAllProfessions()
+        public List<Race> GetAllRaces()
         { 
-            var professions = new List<Profession>();
+            var races = new List<Race>();
 
             using (var conn = Connection)
             { 
@@ -20,29 +20,29 @@ namespace RollForQuirk.Repositories
 
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT Id, CharacterProfession
-                                        FROM Profession";
+                    cmd.CommandText = @"SELECT Id, CharacterRace
+                                        FROM Race";
 
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            var profession = new Profession() 
+                            var race = new Race() 
                             {
                                 Id=reader.GetInt32(reader.GetOrdinal("Id")),
-                                CharacterProfession=reader.GetString(reader.GetOrdinal("CharacterProfession"))
+                                CharacterRace=reader.GetString(reader.GetOrdinal("CharacterRace"))
                             };
 
-                            professions.Add(profession);
+                            races.Add(race);
                         }
                     }
                 }
             }
 
-                return professions;
+                return races;
         }
 
-        public Profession GetProfessionById(int id)
+        public Race GetRaceById(int id)
         {
             using (var conn = Connection)
             {
@@ -50,8 +50,8 @@ namespace RollForQuirk.Repositories
 
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT Id, CharacterProfession
-                                        FROM Profession
+                    cmd.CommandText = @"SELECT Id, CharacterRace
+                                        FROM Race
                                         WHERE Id=@id";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -61,13 +61,13 @@ namespace RollForQuirk.Repositories
 
                     if (reader.Read())
                     { 
-                        var profession = new Profession() 
+                        var race = new Race() 
                         {
                             Id=reader.GetInt32(reader.GetOrdinal("Id")),
-                            CharacterProfession=reader.GetString(reader.GetOrdinal("CharacterProfession"))
+                            CharacterRace=reader.GetString(reader.GetOrdinal("CharacterRace"))
                         };
 
-                        return profession;
+                        return race;
                     }
                     return null;
                 }
