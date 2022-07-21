@@ -5,6 +5,6 @@ namespace RollForQuirk.Repositories
 {
     public interface ICharacterRepository
     {
-        List<Character> GetCharactersByUser(int id);
+        List<Character> GetCharactersByUser(string firebaseId);
     }
 }

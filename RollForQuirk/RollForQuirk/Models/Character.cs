@@ -12,5 +12,9 @@ namespace RollForQuirk.Models
         public int UserProfileId { get; set; }
 
         public List<Trait> Traits { get; set; }
+        public Race CharacterRace { get; set; }
+        public Alignment CharacterAlignment { get; set; }
+        public Profession CharacterProfession { get; set; }
+
     }
 }

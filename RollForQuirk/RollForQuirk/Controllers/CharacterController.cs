@@ -15,10 +15,10 @@ namespace RollForQuirk.Controllers
             _charRepo = charRepo;
         }
         
-        [HttpGet("{id}")]
-        public IActionResult GetByUser(int id)
+        [HttpGet("{firebaseId}")]
+        public IActionResult GetByUser(string firebaseId)
         {
-            var character = _charRepo.GetCharactersByUser(id);
+            var character = _charRepo.GetCharactersByUser(firebaseId);
 
             if (character == null)
             { 
