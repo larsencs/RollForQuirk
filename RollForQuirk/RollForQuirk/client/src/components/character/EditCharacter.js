@@ -1,39 +1,19 @@
-import { useLocation } from "react-router-dom"
 import { FormGroup, Form, Button } from "reactstrap"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getCharacterById } from "../../modules/CharacterManager"
-import { GetProfessionById } from "../../modules/ProfessionManager"
-import { getAlignmentById } from "../../modules/AlignmentManager"
-import { getRaceById } from "../../modules/RaceManager"
 
 
 export const EditCharacter = () =>{
 
     const [character, updateCharacter] = useState()
-    const [alignment, updateAlignment] = useState()
-    const [profession, updateProfession] = useState()
-    const [race, updateRace] = useState()
-    const charId = useParams()
+    const charId = useParams().id
 
     useEffect(()=>{
-        getCharacterById(charId.id).then(res => updateCharacter(res))
+        getCharacterById(charId).then(res => updateCharacter(res))
+        console.log(character)
+        
     },[])
-
-    useEffect(()=>{
-        getAlignmentById(charId.id).then(res => updateAlignment(res))
-    },[])
-
-    useEffect(()=>{
-        getRaceById(charId.id).then(res => updateRace(res))
-    },[])
-
-    useEffect(()=>{
-        GetProfessionById(charId.id).then(res => updateProfession(res))
-    },[])
-
-
-
 
     return(
         <Form>
@@ -48,16 +28,16 @@ export const EditCharacter = () =>{
             </FormGroup>
             <FormGroup>
             <label htmlFor="class-select">Character a class: </label>
-            <input type="text" id="characterProfession" value={profession?.characterProfession}/>
+            <input type="text" id="characterProfession" value={character?.profession?.characterProfession}/>
 
             </FormGroup>
             <FormGroup>
             <label htmlFor="race-select">Character an alignment: </label>
-            <input type="text"/>
+            <input type="text" id="characterAlignment" value={character?.alignment?.characterAlignment}/>
 
             </FormGroup>
             <FormGroup>
-                {/* {traits === null ? "" : traits.map(t => <p>{t.characterTrait}</p>)} */}
+                {character?.traits.map(t => <p>{t.characterTrait}</p>)}
             </FormGroup>
             <FormGroup>
                 {/* {traits === null ? <><Button onClick={generate}>Generate Traits</Button></> : <><Button onClick={""}>Generate Traits</Button><Button onClick={""}>Save</Button></>} */}

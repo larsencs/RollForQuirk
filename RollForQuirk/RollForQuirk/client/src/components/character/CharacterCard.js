@@ -6,7 +6,7 @@ export const CharacterCard = ({character}) =>{
     
     const navigate = useNavigate()
     return (
-        <Card onClick={() => navigate(`${character.id}/details`, {state: character})}>
+        <Card onClick={() => navigate(`${character.id}/details`, {state: character})} className="container-sm col-md-4">
         <CardTitle>{character?.characterName}</CardTitle>
         <CardBody>
             <CardSubtitle>Race: {character?.characterRace?.characterRace}</CardSubtitle>

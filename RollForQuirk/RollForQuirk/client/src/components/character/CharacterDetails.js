@@ -5,11 +5,11 @@ import { Card, CardBody, CardText, CardTitle, CardSubtitle, Button } from "react
 export const CharacterDetails = () =>{
 
     const location = useLocation()
-    const charId = useParams()
     const navigate = useNavigate()
+    const charId = location.state.id
 
     const handleDelete = () =>{
-
+        console.log(charId)
     }
 
     return(
@@ -21,12 +21,10 @@ export const CharacterDetails = () =>{
             <CardSubtitle>Race: {location.state.characterRace.characterRace}</CardSubtitle>
             <CardSubtitle>Class: {location.state.characterProfession.characterProfession}</CardSubtitle>
             <CardSubtitle>Alignment: {location.state.characterAlignment.characterAlignment} </CardSubtitle>
-            <CardSubtitle>Traits: {location.state.traits?.map(res => <CardText>{res.characterTrait}</CardText>)}</CardSubtitle>
-            {console.log(location)}
-            
+            <CardSubtitle>Traits: {location.state.traits?.map(res => <CardText>{res.characterTrait}</CardText>)}</CardSubtitle>            
         </CardBody>
         </Card>
-        <Button onClick={()=> navigate(`/${location.state.id}/edit`)}>Edit</Button><Button onClick={handleDelete}>Delete</Button>
+        <Button onClick={()=> navigate(`/${charId}/edit`)}>Edit</Button><Button onClick={handleDelete} className="btn btn-danger">Delete</Button>
         </>
     )
 }

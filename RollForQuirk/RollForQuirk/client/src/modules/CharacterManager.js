@@ -17,6 +17,6 @@ export const addCharacter = (charObj) =>{
 }
 
 export const getCharacterById = (charId) =>{
-    return fetch(`${baseUrl}/GetCharacterById/${charId}`)
+    return fetch(`${baseUrl}/GetByCharacterId/${charId}`)
         .then(res => res.json())
 }

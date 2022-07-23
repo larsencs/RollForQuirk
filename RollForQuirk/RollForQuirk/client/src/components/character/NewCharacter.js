@@ -58,40 +58,47 @@ export const NewCharacter = ({getLoggedInUser}) =>{
         })}
 
     return (
-    <Form>
+        <div>
+            <Form className="container-sm col-md-3">
         <fieldset>
-            <FormGroup>
+            <FormGroup row>
                 <label htmlFor="name">Character Name: </label>
                 <input type="text" placeholder="character name" id="characterName" onChange={(e) => character.characterName = e.target.value}></input>
             </FormGroup>
-            <FormGroup>
+            <FormGroup row>
             <label htmlFor="race-select">Character Race: </label>
                 <select id="raceId" onChange={(e) => character.raceId = e.target.value}>
                     <option disabled={true} selected="selected">Choose a race</option>
                     {races.map(res => <option value={res.id}>{res.characterRace}</option>)}
                 </select>
             </FormGroup>
-            <FormGroup>
+            <FormGroup row>
             <label htmlFor="class-select">Character a class: </label>
                 <select id="professionId" onChange={(e)=> character.professionId = e.target.value}>
                     <option disabled={true} selected="selected">Choose a class</option>
                     {professions.map(res => <option value={res.id}>{res.characterProfession}</option>)}
                 </select>
             </FormGroup>
-            <FormGroup>
+            <FormGroup row>
             <label htmlFor="race-select">Character an alignment: </label>
                 <select id="alignmentId" onChange={(e)=> character.alignmentId =e.target.value}>
                     <option disabled={true} selected="selected">Choose an alignment</option>
                     {alignments.map(res => <option value={res.id}>{res.characterAlignment}</option>)}
                 </select>
             </FormGroup>
+            </fieldset>
+            </Form>
             <FormGroup>
+                <label>Traits:</label>
+   
                 {traits === null ? "" : traits.map(t => <p>{t.characterTrait}</p>)}
+              
             </FormGroup>
             <FormGroup>
                 {traits === null ? <><Button onClick={generate}>Generate Traits</Button></> : <><Button onClick={generate}>Generate Traits</Button><Button onClick={saveCharacter}>Save</Button></>}
             </FormGroup>
-        </fieldset>
-    </Form>
+        
+    
+        </div>
     )
 }
