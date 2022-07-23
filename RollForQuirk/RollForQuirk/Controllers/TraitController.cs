@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RollForQuirk.Models;
 using RollForQuirk.Repositories;
 
 namespace RollForQuirk.Controllers
@@ -21,6 +22,20 @@ namespace RollForQuirk.Controllers
             return Ok(_traitRepo.GetAllTraits());
         }
 
+        [Route("[action]")]
+        [HttpGet]
+        public IActionResult GetCount()
+        {
+            return Ok(_traitRepo.CountTraits());
+        }
+
+        [Route("[action]")]
+        [HttpGet]
+        public IActionResult GetRandom()
+        {
+            return Ok(_traitRepo.GetRandomTraits());
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         { 
@@ -31,6 +46,13 @@ namespace RollForQuirk.Controllers
                 return NotFound();
             }
             return Ok(trait);
+        }
+        [HttpPost]
+        public IActionResult Post(CharacterTrait trait)
+        {
+            _traitRepo.AddTraitsToCharacter(trait);
+
+            return NoContent();
         }
     }
 }
