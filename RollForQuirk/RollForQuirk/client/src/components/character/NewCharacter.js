@@ -58,7 +58,7 @@ export const NewCharacter = ({getLoggedInUser}) =>{
         })}
 
     return (
-        <div>
+        <div className="">
             <Form className="container-sm col-md-3">
         <fieldset>
             <FormGroup row>
