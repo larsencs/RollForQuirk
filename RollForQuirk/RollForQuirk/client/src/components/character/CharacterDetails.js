@@ -1,30 +1,24 @@
 import { useLocation, useParams, useNavigate, Link } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { Card, CardBody, CardText, CardTitle, CardSubtitle, Button } from "reactstrap"
+import { Card, CardBody, CardText, CardTitle, CardSubtitle, Button, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap"
 
-export const CharacterDetails = () =>{
+export const CharacterDetails = ({character, isOpen, updateIsOpen}) =>{
 
-    const location = useLocation()
-    const navigate = useNavigate()
-    const charId = location.state.id
-
-    const handleDelete = () =>{
-        console.log(charId)
-    }
 
     return(
         <>
-        <Card onClick={()=> navigate("/")}>
+        <Modal isOpen={isOpen} backdrop={true} toggle={()=> updateIsOpen(!isOpen)} className="container-sm">
 
-        <CardTitle>{location.state.characterName}</CardTitle>
-        <CardBody>
-            <CardSubtitle>Race: {location.state.characterRace.characterRace}</CardSubtitle>
-            <CardSubtitle>Class: {location.state.characterProfession.characterProfession}</CardSubtitle>
-            <CardSubtitle>Alignment: {location.state.characterAlignment.characterAlignment} </CardSubtitle>
-            <CardSubtitle>Traits: {location.state.traits?.map(res => <CardText>{res.characterTrait}</CardText>)}</CardSubtitle>            
-        </CardBody>
-        </Card>
-        <Button onClick={()=> navigate(`/${charId}/edit`)}>Edit</Button><Button onClick={handleDelete} className="btn btn-danger">Delete</Button>
+        <ModalHeader>{character?.characterName}</ModalHeader>
+        <ModalBody>
+            <CardSubtitle>Race: {character?.characterRace?.characterRace}</CardSubtitle>
+            <CardSubtitle>Class: {character?.characterProfession?.characterProfession}</CardSubtitle>
+            <CardSubtitle>Alignment: {character?.characterAlignment?.characterAlignment} </CardSubtitle>
+            <CardSubtitle>Traits: {character?.traits.map(res => <p>{res.characterTrait}</p>)}</CardSubtitle>         
+        </ModalBody>
+        
+        <ModalFooter><Button>Edit</Button><Button className="btn btn-danger">Delete</Button></ModalFooter>
+        </Modal>
         </>
     )
 }
