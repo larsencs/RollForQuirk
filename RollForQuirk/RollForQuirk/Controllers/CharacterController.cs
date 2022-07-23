@@ -61,5 +61,16 @@ namespace RollForQuirk.Controllers
 
             return Ok(character);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult EditCharacter(Character character, int id)
+        {
+            if (character.Id != id)
+            {
+                return BadRequest();
+            }
+            _charRepo.EditCharacter(character);
+            return NoContent();
+        }
     }
 }

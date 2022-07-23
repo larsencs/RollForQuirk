@@ -1,23 +1,26 @@
-import { useLocation, useParams, useNavigate, Link } from "react-router-dom"
-import { useEffect, useState } from "react"
-import { Card, CardBody, CardText, CardTitle, CardSubtitle, Button, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap"
+import { Button, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap"
+import {BsFillPencilFill} from 'react-icons/bs'
 
-export const CharacterDetails = ({character, isOpen, updateIsOpen}) =>{
 
+
+export const CharacterDetails = ({character, isOpen, updateIsOpen, updateEdit, edit, handleKeyPress}) =>{
 
     return(
         <>
         <Modal isOpen={isOpen} backdrop={true} toggle={()=> updateIsOpen(!isOpen)} className="container-sm">
 
-        <ModalHeader>{character?.characterName}</ModalHeader>
+        <ModalHeader className="container-sm"><div className="row">
+            {edit ? <input type="text" id="characterName" autoFocus className="col-md-auto" defaultValue={character?.characterName} onKeyDown={handleKeyPress} onChange={(e) => character.characterName = e.target.value}/> : <div className="col-md-auto">{character?.characterName}</div>}
+            {edit ? "" : <div className="col-md-auto" style={{cursor:'pointer'}} onClick={()=> updateEdit(!edit)}><BsFillPencilFill/></div>}</div>
+        </ModalHeader>
         <ModalBody>
-            <CardSubtitle>Race: {character?.characterRace?.characterRace}</CardSubtitle>
-            <CardSubtitle>Class: {character?.characterProfession?.characterProfession}</CardSubtitle>
-            <CardSubtitle>Alignment: {character?.characterAlignment?.characterAlignment} </CardSubtitle>
-            <CardSubtitle>Traits: {character?.traits.map(res => <p>{res.characterTrait}</p>)}</CardSubtitle>         
+            <p>Race: {character?.characterRace?.characterRace}</p>
+            <p>Class: {character?.characterProfession?.characterProfession}</p>
+            <p>Alignment: {character?.characterAlignment?.characterAlignment} </p>
+            <p>Traits: {character?.traits.map(res => <p>{res.characterTrait}</p>)}</p>         
         </ModalBody>
         
-        <ModalFooter><Button>Edit</Button><Button className="btn btn-danger">Delete</Button></ModalFooter>
+        <ModalFooter><Button className="btn btn-danger">Delete</Button></ModalFooter>
         </Modal>
         </>
     )

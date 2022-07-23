@@ -20,3 +20,13 @@ export const getCharacterById = (charId) =>{
     return fetch(`${baseUrl}/GetByCharacterId/${charId}`)
         .then(res => res.json())
 }
+
+export const editCharacter = (charObj) =>{
+    return fetch(`${baseUrl}/${charObj.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify(charObj)
+    })
+}

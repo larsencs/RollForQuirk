@@ -2,11 +2,24 @@ import React, {useState} from "react"
 import { useNavigate } from "react-router-dom"
 import { Card, CardBody, CardText, CardTitle, CardSubtitle, Button } from "reactstrap"
 import { CharacterDetails } from "./CharacterDetails"
+import { editCharacter } from "../../modules/CharacterManager"
 
 export const CharacterCard = ({character}) =>{
     
     const [isOpen, updateIsOpen] = useState(false)
-    const navigate = useNavigate()
+    const [edit, updateEdit] = useState(false)
+
+    const handleKeyPress = (event) =>{
+        if(event.key === 'Escape' )
+        {
+            updateEdit(!edit)
+        }else if(event.key === 'Enter')
+        {
+            editCharacter(character).then(updateEdit(!edit))
+
+        }
+    }
+
     return (
         <>
             
@@ -19,7 +32,7 @@ export const CharacterCard = ({character}) =>{
                     {/* <CardSubtitle>Traits: {character?.traits?.map(res => <CardText>{res.characterTrait}</CardText>)}</CardSubtitle> */}
                 </CardBody>
             </Card>
-            <CharacterDetails character={character} isOpen={isOpen} updateIsOpen={updateIsOpen}/>
+            <CharacterDetails character={character} isOpen={isOpen} updateEdit={updateEdit} edit={edit} handleKeyPress={handleKeyPress} updateIsOpen={updateIsOpen}/>
         </>
 
     )

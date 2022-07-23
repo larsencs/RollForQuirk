@@ -174,5 +174,25 @@ namespace RollForQuirk.Repositories
                 conn.Close();
             }
         }
+
+        public void EditCharacter(Character character)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Character
+                                        SET CharacterName=@charName
+                                        WHERE Id=@id";
+
+                    cmd.Parameters.AddWithValue("@id", character.Id);
+                    cmd.Parameters.AddWithValue("@charName", character.CharacterName);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
