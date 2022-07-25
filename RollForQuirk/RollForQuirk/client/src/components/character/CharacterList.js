@@ -18,7 +18,6 @@ export const CharacterList = ({getLoggedInUser}) =>{
 
     useEffect(()=>{
         getCharacterByUserId(user.firebaseId).then(res => {
-            console.log("response", res)
             updateCharacters(res)
         })
     },[user])
@@ -27,9 +26,8 @@ export const CharacterList = ({getLoggedInUser}) =>{
 
     return(
         <>
-        <Button onClick={()=> navigate("/create")}>New Character</Button>
         <section>
-            {characters == null ? "You do not currently have any characters" : characters.map(res => <CharacterCard key={res.Id} character={res}/>)}
+            {characters == null ? "You do not currently have any characters" : characters.map(res => <CharacterCard key={res.Id} character={res} updateCharacters={updateCharacters} user={user}/>)}
         </section>
         </>
     )

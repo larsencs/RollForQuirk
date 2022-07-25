@@ -72,5 +72,13 @@ namespace RollForQuirk.Controllers
             _charRepo.EditCharacter(character);
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete( int id)
+        {
+    
+            _charRepo.Delete(id);
+            return NoContent();
+        }
     }
 }

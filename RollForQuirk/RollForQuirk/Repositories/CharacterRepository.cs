@@ -36,7 +36,8 @@ namespace RollForQuirk.Repositories
                                         LEFT JOIN Race r ON r.Id = RaceId
                                         LEFT JOIN Profession p ON p.Id = ProfessionId
                                         LEFT JOIN Alignment a ON a.Id = AlignmentId
-                                        WHERE up.FirebaseId LIKE @id";
+                                        WHERE up.FirebaseId LIKE @id
+                                        ORDER BY c.Id DESC";
 
                     cmd.Parameters.AddWithValue("@id", firebaseId);
 
@@ -189,6 +190,24 @@ namespace RollForQuirk.Repositories
 
                     cmd.Parameters.AddWithValue("@id", character.Id);
                     cmd.Parameters.AddWithValue("@charName", character.CharacterName);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void Delete(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Character
+                                        WHERE Id=@id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();
                 }
