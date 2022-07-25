@@ -30,3 +30,12 @@ export const editCharacter = (charObj) =>{
         body: JSON.stringify(charObj)
     })
 }
+
+export const deleteCharacter = (charObj) =>{
+    return fetch(`${baseUrl}/${charObj.id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+    })
+}

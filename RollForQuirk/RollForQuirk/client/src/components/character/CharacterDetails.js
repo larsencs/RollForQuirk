@@ -3,7 +3,7 @@ import {BsFillPencilFill} from 'react-icons/bs'
 
 
 
-export const CharacterDetails = ({character, isOpen, updateIsOpen, updateEdit, edit, handleKeyPress}) =>{
+export const CharacterDetails = ({character, isOpen, updateIsOpen, updateEdit, edit, handleKeyPress, handleDelete}) =>{
 
     return(
         <>
@@ -20,7 +20,7 @@ export const CharacterDetails = ({character, isOpen, updateIsOpen, updateEdit, e
             <p>Traits: {character?.traits.map(res => <p>{res.characterTrait}</p>)}</p>         
         </ModalBody>
         
-        <ModalFooter><Button className="btn btn-danger">Delete</Button></ModalFooter>
+        <ModalFooter><Button className="btn btn-danger" onClick={handleDelete}>Delete</Button></ModalFooter>
         </Modal>
         </>
     )

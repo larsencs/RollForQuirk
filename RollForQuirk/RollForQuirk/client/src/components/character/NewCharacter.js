@@ -46,16 +46,22 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     }
 
     const saveCharacter = () =>{
-        const newChar = {...character}
-        newChar.userProfileId = user.id
-        console.log(newChar)
-        addCharacter(newChar).then((res) =>{
-            const promises = []
-
-            traits.forEach(t => promises.push(addTrait({traitId: t.id, characterId: res.id})))
-            Promise.all(promises).then(() => navigate("/"))
-                
-        })}
+        if(character.characterName === null || character.characterProfession === null || character.characterAlignment === null || character.characterRace === null || traits[0].characterTrait === null)
+        {
+            window.alert("Bro, make a character. What are you even doing?")
+        }
+        else{
+            const newChar = {...character}
+            newChar.userProfileId = user.id
+            console.log(newChar)
+            addCharacter(newChar).then((res) =>{
+                const promises = []
+                traits.forEach(t => promises.push(addTrait({traitId: t.id, characterId: res.id})))
+                Promise.all(promises).then(() => navigate("/"))
+                    
+            })
+        }
+    }
 
     return (
         <div className="">

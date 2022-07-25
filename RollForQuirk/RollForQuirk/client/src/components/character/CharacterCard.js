@@ -1,13 +1,20 @@
-import React, {useState} from "react"
-import { useNavigate } from "react-router-dom"
-import { Card, CardBody, CardText, CardTitle, CardSubtitle, Button } from "reactstrap"
+import React, {useState, useEffect} from "react"
+import { Card, CardBody, CardTitle, CardSubtitle, CardImg, CardImgOverlay } from "reactstrap"
 import { CharacterDetails } from "./CharacterDetails"
 import { editCharacter } from "../../modules/CharacterManager"
+import { deleteCharacter } from "../../modules/CharacterManager"
+import { getCharacterByUserId } from "../../modules/CharacterManager"
 
-export const CharacterCard = ({character}) =>{
+export const CharacterCard = ({character, updateCharacters, user}) =>{
     
     const [isOpen, updateIsOpen] = useState(false)
     const [edit, updateEdit] = useState(false)
+
+    useEffect(()=>{
+        getCharacterByUserId(user.firebaseId).then(res => {
+            updateCharacters(res)
+        })
+    },[isOpen]) 
 
     const handleKeyPress = (event) =>{
         if(event.key === 'Escape' )
@@ -20,19 +27,32 @@ export const CharacterCard = ({character}) =>{
         }
     }
 
+
+    const handleDelete = () =>{
+        deleteCharacter(character)
+            .then(updateIsOpen(!isOpen))
+    }
+
+    const imageSize = {
+        maxHeight: 200,
+        maxWidth: 300
+    }
+
     return (
         <>
             
             <Card className="container-sm col-md-4" onClick={()=> updateIsOpen(!isOpen)} style={{cursor: 'pointer'}}>
-                <CardTitle>{character?.characterName}</CardTitle>
+                <CardImg src={`/images/${character?.characterProfession?.characterProfession.toLowerCase()}-symbol.svg`} style={imageSize}/>
+                <CardImgOverlay>
+                <CardTitle className="bg-">{character?.characterName}</CardTitle>
                 <CardBody>
                     <CardSubtitle>Race: {character?.characterRace?.characterRace}</CardSubtitle>
                     <CardSubtitle>Class: {character?.characterProfession?.characterProfession}</CardSubtitle>
                     <CardSubtitle>Alignment: {character?.characterAlignment?.characterAlignment} </CardSubtitle>
-                    {/* <CardSubtitle>Traits: {character?.traits?.map(res => <CardText>{res.characterTrait}</CardText>)}</CardSubtitle> */}
                 </CardBody>
+                </CardImgOverlay>
             </Card>
-            <CharacterDetails character={character} isOpen={isOpen} updateEdit={updateEdit} edit={edit} handleKeyPress={handleKeyPress} updateIsOpen={updateIsOpen}/>
+            <CharacterDetails character={character} isOpen={isOpen} updateEdit={updateEdit} edit={edit} handleDelete={handleDelete} handleKeyPress={handleKeyPress} updateIsOpen={updateIsOpen}/>
         </>
 
     )
