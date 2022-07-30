@@ -33,7 +33,6 @@ namespace RollForQuirk
             services.AddTransient<IAlignmentRepository, AlignmentRepository>();
             services.AddTransient<IProfessionRepository, ProfessionRepository>();
             services.AddTransient<IRaceRepository, RaceRepository>();
-            services.AddTransient<ITraitRepository, TraitRepository>();
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<ICharacterRepository, CharacterRepository>();
             
