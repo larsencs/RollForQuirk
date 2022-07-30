@@ -53,12 +53,13 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             const newChar = {...character}
             newChar.userProfileId = user.id
             console.log(newChar)
-            addCharacter(newChar).then((res) =>{
-                const promises = []
-                traits.forEach(t => promises.push(addTrait({traitId: t.id, characterId: res.id})))
-                Promise.all(promises).then(() => navigate("/"))
+            addCharacter(newChar)
+            // addCharacter(newChar).then((res) =>{
+            //     const promises = []
+            //     traits.forEach(t => promises.push(addTrait({traitId: t.id, characterId: res.id})))
+            //     Promise.all(promises).then(() => navigate("/"))
                     
-            })
+            // })
         }
     }
 
