@@ -23,6 +23,7 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     const [stress, updateStress] = useState({})
     const [traits, updateTraits] = useState(false)
     const [showQuirks, updateShowQuirks] = useState(false)
+    const [showDrive, updateShowDrive] = useState(false)
     const [quirks, updateQuirks] = useState()
     
 
@@ -67,7 +68,6 @@ export const NewCharacter = ({getLoggedInUser}) =>{
                         quirkArr.push(r.characterQuirk)
                     }
                 })
-                console.log("I ran")
             }
         }).then(() => {
             updateQuirks(quirkArr)
@@ -94,6 +94,10 @@ export const NewCharacter = ({getLoggedInUser}) =>{
                 <p>{`${quirks[2]} ${quirks[1]} ${quirks[3]}`}</p>
             </>
         )
+    }
+
+    const displayDrive = () =>{
+
     }
 
     const saveCharacter = () =>{
@@ -146,6 +150,9 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             </FormGroup>
             <FormGroup>
                 {traits ? displayTraits() : "" }
+            </FormGroup>
+            <FormGroup>
+                {showDrive ? displayDrive(): ""}
             </FormGroup>
             <FormGroup>
                 {showQuirks ? displayQuirks() : ""}

@@ -40,6 +40,8 @@ namespace RollForQuirk
             services.AddTransient<IStressRepository, StressRepository>();
             services.AddTransient<IQuirkRepository, QuirkRepository>();
             services.AddTransient<IQuirkFragmentRepository, QuirkFragmentRepository>();
+            services.AddTransient<IDriveFragmentRepository, DriveFragmentRepository>();
+            services.AddTransient<IDriveRepository, DriveRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";

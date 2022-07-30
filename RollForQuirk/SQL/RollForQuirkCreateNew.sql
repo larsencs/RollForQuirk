@@ -88,9 +88,7 @@ GO
 CREATE TABLE [DriveFragment] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
   [FragmentOne] nvarchar(255),
-  [InsertOne] nvarchar(255),
   [FragmentTwo] nvarchar(255),
-  [InsertTwo] nvarchar(255)
 )
 GO
 
