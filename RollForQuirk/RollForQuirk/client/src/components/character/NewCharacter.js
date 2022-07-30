@@ -22,6 +22,7 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     const [flaw, updateFlaw] = useState({})
     const [stress, updateStress] = useState({})
     const [traits, updateTraits] = useState(false)
+    const [showQuirks, updateShowQuirks] = useState(false)
     const [quirks, updateQuirks] = useState()
     
 
@@ -51,8 +52,7 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     }
 
     const generateQuirks = () =>{
-        const quirkArr = []
-        
+        const quirkArr = []        
 
         getFragment().then(res =>{
             quirkArr.push(res.fragmentOne)
@@ -69,27 +69,29 @@ export const NewCharacter = ({getLoggedInUser}) =>{
                 })
                 console.log("I ran")
             }
-        })
-        
-        if(quirkArr.length === 3){
-            let characterQuirk = ` ${quirkArr[0].toString()} ${quirkArr[2].toString()} ${quirkArr[1].toString()} ${quirkArr[3].toString()}`
-
-            console.log(characterQuirk)
-        }
-
-        
-        console.log(quirkArr)
-
-
+        }).then(() => {
+            updateQuirks(quirkArr)
+            
+        }).then(() => updateShowQuirks(true))
 
     }
 
     const displayTraits = () =>{
         return (
             <>
+                <h3>Traits</h3>
                 <p value={flaw.Id}>Flaw: {flaw.flawCharacteristic}</p>
                 <p value={fear.Id}>Afraid of: {fear.fearCharacteristic}</p>
                 <p value={stress.Id}>When stressed your character is: {stress.stressedCharacteristic}</p>
+            </>
+        )
+    }
+
+    const displayQuirks = () =>{
+        return (
+            <>
+                <h3>Quirk(s)</h3>
+                <p>{`${quirks[2]} ${quirks[1]} ${quirks[3]}`}</p>
             </>
         )
     }
@@ -145,10 +147,14 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             <FormGroup>
                 {traits ? displayTraits() : "" }
             </FormGroup>
+            <FormGroup>
+                {showQuirks ? displayQuirks() : ""}
+            </FormGroup>
             </fieldset>
             </Form>
             <FormGroup>
                 <Button onClick={generateTraits}>Generate Traits</Button>
+                <Button >Generate Drive</Button>
                 <Button onClick={generateQuirks}>Generate Quirks</Button>
             </FormGroup>
         
