@@ -1,4 +1,7 @@
-﻿namespace RollForQuirk.Models
+﻿using System.Collections.Generic;
+using RollForQuirk.Models;
+
+namespace RollForQuirk.Models
 {
     public class Quirk
     {

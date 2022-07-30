@@ -74,10 +74,8 @@ GO
 
 CREATE TABLE [QuirkFragment] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
-  [FragmentOne] nvarchar(255) NOT NULL,
-  [InsertOne] nvarchar(255) NOT NULL,
-  [FragmentTwo] nvarchar(255) NOT NULL,
-  [InsertTwo] nvarchar(255) NOT NULL
+  [FragmentOne] nvarchar(255),
+  [FragmentTwo] nvarchar(255),
 )
 GO
 

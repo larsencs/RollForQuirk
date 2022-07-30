@@ -6,7 +6,8 @@ import { addTrait } from "../../modules/TraitManager"
 import { addCharacter } from "../../modules/CharacterManager"
 import { getAllProfessions } from "../../modules/ProfessionManager"
 import { getAllRaces } from "../../modules/RaceManager"
-import { getCount, getTraitbyId, getRandom } from "../../modules/TraitManager"
+import { getCount, getTraitbyId, getRandom, getFear, getFlaw, getStress } from "../../modules/TraitManager"
+import { getFragment, getQuirk, getTwoQuirks } from "../../modules/QuirkManager"
 import {Button} from "reactstrap"
 
 export const NewCharacter = ({getLoggedInUser}) =>{
@@ -17,6 +18,11 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     const [races, setRaces] = useState([])
     const [professions, setProfessions] = useState([])
     const [character, updateCharacter] = useState({})
+    const [fear, updateFear] = useState({})
+    const [flaw, updateFlaw] = useState({})
+    const [stress, updateStress] = useState({})
+    const [traits, updateTraits] = useState(false)
+    const [quirks, updateQuirks] = useState()
     
 
     useEffect(()=>{
@@ -35,17 +41,61 @@ export const NewCharacter = ({getLoggedInUser}) =>{
         getAllRaces().then(res => setRaces(res))
     },[])
 
-    const generate = () =>{
-        
-        getRandom().then(res => updateTraits(res))
-        
-
-        
+    const generateTraits = () =>{
+      
+    getFear().then(res => updateFear(res))
+    getFlaw().then(res => updateFlaw(res))
+    getStress().then(res => updateStress(res))
+    updateTraits(true)       
         
     }
 
+    const generateQuirks = () =>{
+        const quirkArr = []
+        
+
+        getFragment().then(res =>{
+            quirkArr.push(res.fragmentOne)
+            quirkArr.push(res.fragmentTwo)
+            if(res.fragmentOne !== null && res.fragmentTwo !== null)
+            {
+                getQuirk().then(res => quirkArr.push(res))
+            }else{
+                getTwoQuirks().then(res => {
+                    for(let r of res)
+                    {
+                        quirkArr.push(r.characterQuirk)
+                    }
+                })
+                console.log("I ran")
+            }
+        })
+        
+        if(quirkArr.length === 3){
+            let characterQuirk = ` ${quirkArr[0].toString()} ${quirkArr[2].toString()} ${quirkArr[1].toString()} ${quirkArr[3].toString()}`
+
+            console.log(characterQuirk)
+        }
+
+        
+        console.log(quirkArr)
+
+
+
+    }
+
+    const displayTraits = () =>{
+        return (
+            <>
+                <p value={flaw.Id}>Flaw: {flaw.flawCharacteristic}</p>
+                <p value={fear.Id}>Afraid of: {fear.fearCharacteristic}</p>
+                <p value={stress.Id}>When stressed your character is: {stress.stressedCharacteristic}</p>
+            </>
+        )
+    }
+
     const saveCharacter = () =>{
-        if(character.characterName === null || character.characterProfession === null || character.characterAlignment === null || character.characterRace === null || traits[0].characterTrait === null)
+        if(character.characterName === null || character.characterProfession === null || character.characterAlignment === null || character.characterRace === null)
         {
             window.alert("Bro, make a character. What are you even doing?")
         }
@@ -92,10 +142,14 @@ export const NewCharacter = ({getLoggedInUser}) =>{
                     {alignments.map(res => <option value={res.id}>{res.characterAlignment}</option>)}
                 </select>
             </FormGroup>
+            <FormGroup>
+                {traits ? displayTraits() : "" }
+            </FormGroup>
             </fieldset>
             </Form>
             <FormGroup>
-                <Button onClick={generate}>Generate Traits</Button>
+                <Button onClick={generateTraits}>Generate Traits</Button>
+                <Button onClick={generateQuirks}>Generate Quirks</Button>
             </FormGroup>
         
     

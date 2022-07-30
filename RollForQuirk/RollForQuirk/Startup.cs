@@ -30,12 +30,17 @@ namespace RollForQuirk
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddTransient<IAlignmentRepository, AlignmentRepository>();
-            //services.AddTransient<IProfessionRepository, ProfessionRepository>();
-            //services.AddTransient<IRaceRepository, RaceRepository>();
-            //services.AddTransient<IUserProfileRepository, UserProfileRepository>();
-            //services.AddTransient<ICharacterRepository, CharacterRepository>();
-            
+            services.AddTransient<IAlignmentRepository, AlignmentRepository>();
+            services.AddTransient<IProfessionRepository, ProfessionRepository>();
+            services.AddTransient<IRaceRepository, RaceRepository>();
+            services.AddTransient<IUserProfileRepository, UserProfileRepository>();
+            services.AddTransient<ICharacterRepository, CharacterRepository>();
+            services.AddTransient<IFearRepository, FearRepository>();
+            services.AddTransient<IFlawRepository, FlawRepository>();
+            services.AddTransient<IStressRepository, StressRepository>();
+            services.AddTransient<IQuirkRepository, QuirkRepository>();
+            services.AddTransient<IQuirkFragmentRepository, QuirkFragmentRepository>();
+
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
             services

@@ -214,15 +214,22 @@ namespace RollForQuirk.Repositories
 
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Character (CharacterName, ProfessionId, RaceId, AlignmentId, UserProfileId)
+                    cmd.CommandText = @"INSERT INTO Character (CharacterName, ProfessionId, RaceId, AlignmentId, UserProfileId, FearId, StressId, FlawId, CharacterDrive, QuirkOne, QuirkTwo, QuirkThree)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@character, @prof, @race, @align, @user)";
+                                        VALUES (@character, @prof, @race, @align, @user, @fear, @stress, @flaw, @drive, @qOne, @qTwo, @qThree)";
 
                     cmd.Parameters.AddWithValue("@character", character.CharacterName);
                     cmd.Parameters.AddWithValue("@prof", character.ProfessionId);
                     cmd.Parameters.AddWithValue("@race", character.RaceId);
                     cmd.Parameters.AddWithValue("@align", character.AlignmentId);
                     cmd.Parameters.AddWithValue("@user", character.UserProfileId);
+                    cmd.Parameters.AddWithValue("@fear", character.FearId);
+                    cmd.Parameters.AddWithValue("@stress", character.StressId);
+                    cmd.Parameters.AddWithValue("flaw", character.FlawId);
+                    cmd.Parameters.AddWithValue("@drive", character.CharacterDrive);
+                    cmd.Parameters.AddWithValue("@qOne", character.QuirkOne);
+                    cmd.Parameters.AddWithValue("@qTwo", character.QuirkTwo);
+                    cmd.Parameters.AddWithValue("qThree", character.QuirkThree);
 
                     character.Id = (int)cmd.ExecuteScalar();
                 }

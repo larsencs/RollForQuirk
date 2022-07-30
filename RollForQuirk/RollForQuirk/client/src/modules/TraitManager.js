@@ -1,5 +1,24 @@
 const baseUrl = "api/Trait"
+const stressUrl = "api/Stress"
+const fearUrl = "api/Fear"
+const flawUrl = "api/Flaw"
 
+export const getFlaw = () =>{
+    return fetch(flawUrl).then(res => res.json())
+}
+
+export const getFear = () =>{
+    return fetch(fearUrl).then(res => res.json())
+}
+
+export const getStress = () => {
+    return fetch(stressUrl).then(res => res.json())
+}
+
+
+
+
+//TO-BE-DELETED Functions
 export const getAllTraits = () =>{
     return fetch(baseUrl)
         .then(res => res.json())

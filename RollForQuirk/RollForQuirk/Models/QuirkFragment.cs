@@ -6,7 +6,5 @@
 
         public string FragmentOne { get; set; }
         public string FragmentTwo { get; set; }
-        public string InsertOne { get; set; }
-        public string InsertTwo { get; set; }
     }
 }
