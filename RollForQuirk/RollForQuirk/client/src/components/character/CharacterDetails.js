@@ -17,7 +17,9 @@ export const CharacterDetails = ({character, isOpen, updateIsOpen, updateEdit, e
             <p>Race: {character?.characterRace?.characterRace}</p>
             <p>Class: {character?.characterProfession?.characterProfession}</p>
             <p>Alignment: {character?.characterAlignment?.characterAlignment} </p>
-            <p>Traits: {character?.traits.map(res => <p>{res.characterTrait}</p>)}</p>         
+            <p>Flaw: {character?.flaw?.flawCharacteristic}</p>
+            <p>Is afraid of: {character?.fear?.fearCharacteristic}</p>
+            <p>When stressed {character.characterName} is: {character?.stress?.stressedCharacteristic}</p>     
         </ModalBody>
         
         <ModalFooter><Button className="btn btn-danger" onClick={handleDelete}>Delete</Button></ModalFooter>

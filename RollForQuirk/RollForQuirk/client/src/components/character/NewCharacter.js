@@ -16,7 +16,6 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     const [alignments, setAlignments] = useState([])
     const [races, setRaces] = useState([])
     const [professions, setProfessions] = useState([])
-    const [traits, updateTraits] = useState([])
     const [character, updateCharacter] = useState({})
     
 
@@ -95,13 +94,7 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             </fieldset>
             </Form>
             <FormGroup>
-                <label>Traits:</label>
-   
-                {traits === null ? "" : traits.map(t => <p>{t.characterTrait}</p>)}
-              
-            </FormGroup>
-            <FormGroup>
-                {traits === null ? <><Button onClick={generate}>Generate Traits</Button></> : <><Button onClick={generate}>Generate Traits</Button><Button onClick={saveCharacter}>Save</Button></>}
+                <Button onClick={generate}>Generate Traits</Button>
             </FormGroup>
         
     

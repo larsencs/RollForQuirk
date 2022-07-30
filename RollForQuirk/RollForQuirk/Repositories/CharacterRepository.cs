@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using RollForQuirk.Models;
 using System.Collections.Generic;
+using RollForQuirk.Utils;
 
 namespace RollForQuirk.Repositories
 {
@@ -21,7 +22,8 @@ namespace RollForQuirk.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT c.Id AS CharacterId, c.CharacterName, c.ProfessionId, c.RaceId,
-                                               c.AlignmentId, c.UserProfileId,
+                                               c.AlignmentId, c.UserProfileId, c.FlawId, c.FearId, c.StressId,
+                                               c.CharacterDrive, c.QuirkOne, c.QuirkTwo, c.QuirkThree
 
                                                up.FirebaseId,
 
@@ -29,13 +31,22 @@ namespace RollForQuirk.Repositories
 
                                                p.Id as ProfessionId, p.CharacterProfession,
 
-                                               a.Id as AlignmentId, a.CharacterAlignment
+                                               a.Id as AlignmentId, a.CharacterAlignment,
+                                        
+                                               fe.Id AS fearId, fe.FearCharacteristic,
+
+                                               fl.Id as flawId, fl.FlawCharacteristic,
+
+                                               st.Id as stressId, st.StressedCharacteristic
 
                                         FROM Character c
                                         LEFT JOIN UserProfile up ON up.Id = c.UserProfileId
                                         LEFT JOIN Race r ON r.Id = RaceId
                                         LEFT JOIN Profession p ON p.Id = ProfessionId
                                         LEFT JOIN Alignment a ON a.Id = AlignmentId
+                                        LEFT JOIN Fear fe ON fe.Id = FearId
+                                        LEFT JOIN Flaw fl ON fl.Id = FlawId
+                                        LEFT JOIN Stress st ON st.Id = StressId
                                         WHERE up.FirebaseId LIKE @id
                                         ORDER BY c.Id DESC";
 
@@ -43,37 +54,54 @@ namespace RollForQuirk.Repositories
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        
+
                         while (reader.Read())
                         {
 
                             var character = new Character()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("CharacterId")),
-                                CharacterName = reader.GetString(reader.GetOrdinal("CharacterName")),
-                                ProfessionId = reader.GetInt32(reader.GetOrdinal("ProfessionId")),
-                                RaceId = reader.GetInt32(reader.GetOrdinal("RaceId")),
-                                AlignmentId = reader.GetInt32(reader.GetOrdinal("AlignmentId")),
-                                UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
-                                CharacterRace= new Race() 
+                                Id = DbUtils.GetNullableInt(reader, "CharacterId"),
+                                CharacterName = DbUtils.GetNullableString(reader, "CharacterName"),
+                                ProfessionId = DbUtils.GetNullableInt(reader, "ProfessionId"),
+                                RaceId = DbUtils.GetNullableInt(reader, "RaceId"),
+                                AlignmentId = DbUtils.GetNullableInt(reader, "AlignmentId"),
+                                UserProfileId = DbUtils.GetNullableInt(reader, "UserProfileId"),
+                                FlawId = DbUtils.GetNullableInt(reader, "FlawId"),
+                                FearId = DbUtils.GetNullableInt(reader, "FearId"),
+                                StressId = DbUtils.GetNullableInt(reader, "StressId"),
+                                CharacterRace = new Race()
                                 {
-                                    Id=reader.GetInt32(reader.GetOrdinal("RaceId")),
-                                    CharacterRace=reader.GetString(reader.GetOrdinal("CharacterRace"))
+                                    Id = DbUtils.GetNullableInt(reader, "raceId"),
+                                    CharacterRace = DbUtils.GetNullableString(reader, "CharacterRace")
                                 },
-                                CharacterProfession=new Profession() 
+                                CharacterAlignment = new Alignment()
                                 {
-                                    Id=reader.GetInt32(reader.GetOrdinal("ProfessionId")),
-                                    CharacterProfession=reader.GetString(reader.GetOrdinal("CharacterProfession"))
+                                    Id = DbUtils.GetNullableInt(reader, "alignmentId"),
+                                    CharacterAlignment = DbUtils.GetNullableString(reader, "CharacterAlignment")
                                 },
-                                CharacterAlignment=new Alignment() 
+                                CharacterProfession = new Profession()
                                 {
-                                    Id=reader.GetInt32(reader.GetOrdinal("AlignmentId")),
-                                    CharacterAlignment=reader.GetString(reader.GetOrdinal("CharacterAlignment"))
+                                    Id = DbUtils.GetNullableInt(reader, "professionId"),
+                                    CharacterProfession = DbUtils.GetNullableString(reader, "CharacterProfession")
                                 },
-                                Traits = new List<Trait>()
-                                
+                                Fear = new Fear()
+                                {
+                                    Id = DbUtils.GetNullableInt(reader, "fearId"),
+                                    FearCharacteristic = DbUtils.GetNullableString(reader, "FearCharacteristic")
+                                },
+                                Flaw = new Flaw()
+                                {
+                                    Id = DbUtils.GetNullableInt(reader, "flawId"),
+                                    FlawCharacteristic = DbUtils.GetNullableString(reader, "FlawCharacteristic")
+                                },
+                                Stress = new Stress()
+                                {
+                                    Id = DbUtils.GetNullableInt(reader, "stressId"),
+                                    StressedCharacteristic = DbUtils.GetNullableString(reader, "StressedCharacteristic")
+                                }
+
                             };
-                            
+
                             characterList.Add(character);
                         }
                     }
@@ -87,13 +115,14 @@ namespace RollForQuirk.Repositories
         public Character GetByCharacterId(int id)
         {
             using (var conn = Connection)
-            { 
+            {
                 conn.Open();
 
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT c.Id AS CharacterId, c.CharacterName, c.ProfessionId, c.RaceId,
-                                               c.AlignmentId, c.UserProfileId,
+                                               c.AlignmentId, c.UserProfileId, c.FlawId, c.FearId, c.StressId,
+                                               c.CharacterDrive, c.QuirkOne, c.QuirkTwo, c.QuirkThree
 
                                                up.FirebaseId,
 
@@ -101,13 +130,22 @@ namespace RollForQuirk.Repositories
 
                                                p.Id as ProfessionId, p.CharacterProfession,
 
-                                               a.Id as AlignmentId, a.CharacterAlignment
+                                               a.Id as AlignmentId, a.CharacterAlignment,
+                                        
+                                               fe.Id AS fearId, fe.FearCharacteristic,
+
+                                               fl.Id as flawId, fl.FlawCharacteristic,
+
+                                               st.Id as stressId, st.StressedCharacteristic
 
                                         FROM Character c
                                         LEFT JOIN UserProfile up ON up.Id = c.UserProfileId
                                         LEFT JOIN Race r ON r.Id = RaceId
                                         LEFT JOIN Profession p ON p.Id = ProfessionId
                                         LEFT JOIN Alignment a ON a.Id = AlignmentId
+                                        LEFT JOIN Fear fe ON fe.Id = FearId
+                                        LEFT JOIN Flaw fl ON fl.Id = FlawId
+                                        LEFT JOIN Stress st ON st.Id = StressId
                                         WHERE c.Id=@id";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -118,28 +156,45 @@ namespace RollForQuirk.Repositories
                     {
                         var character = new Character()
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("CharacterId")),
-                            CharacterName = reader.GetString(reader.GetOrdinal("CharacterName")),
-                            ProfessionId = reader.GetInt32(reader.GetOrdinal("ProfessionId")),
-                            RaceId = reader.GetInt32(reader.GetOrdinal("RaceId")),
-                            AlignmentId = reader.GetInt32(reader.GetOrdinal("AlignmentId")),
-                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
+                            Id = DbUtils.GetNullableInt(reader, "CharacterId"),
+                            CharacterName = DbUtils.GetNullableString(reader, "CharacterName"),
+                            ProfessionId = DbUtils.GetNullableInt(reader, "ProfessionId"),
+                            RaceId = DbUtils.GetNullableInt(reader, "RaceId"),
+                            AlignmentId = DbUtils.GetNullableInt(reader, "AlignmentId"),
+                            UserProfileId = DbUtils.GetNullableInt(reader, "UserProfileId"),
+                            FlawId = DbUtils.GetNullableInt(reader, "FlawId"),
+                            FearId = DbUtils.GetNullableInt(reader, "FearId"),
+                            StressId = DbUtils.GetNullableInt(reader, "StressId"),
                             CharacterRace = new Race()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("RaceId")),
-                                CharacterRace = reader.GetString(reader.GetOrdinal("CharacterRace"))
-                            },
-                            CharacterProfession = new Profession()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("ProfessionId")),
-                                CharacterProfession = reader.GetString(reader.GetOrdinal("CharacterProfession"))
+                                Id = DbUtils.GetNullableInt(reader, "raceId"),
+                                CharacterRace = DbUtils.GetNullableString(reader, "CharacterRace")
                             },
                             CharacterAlignment = new Alignment()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("AlignmentId")),
-                                CharacterAlignment = reader.GetString(reader.GetOrdinal("CharacterAlignment"))
+                                Id = DbUtils.GetNullableInt(reader, "alignmentId"),
+                                CharacterAlignment = DbUtils.GetNullableString(reader, "CharacterAlignment")
                             },
-                            Traits = new List<Trait>()
+                            CharacterProfession = new Profession()
+                            {
+                                Id = DbUtils.GetNullableInt(reader, "professionId"),
+                                CharacterProfession = DbUtils.GetNullableString(reader, "CharacterProfession")
+                            },
+                            Fear = new Fear()
+                            {
+                                Id = DbUtils.GetNullableInt(reader, "fearId"),
+                                FearCharacteristic = DbUtils.GetNullableString(reader, "FearCharacteristic")
+                            },
+                            Flaw = new Flaw()
+                            {
+                                Id = DbUtils.GetNullableInt(reader, "flawId"),
+                                FlawCharacteristic = DbUtils.GetNullableString(reader, "FlawCharacteristic")
+                            },
+                            Stress = new Stress()
+                            {
+                                Id = DbUtils.GetNullableInt(reader, "stressId"),
+                                StressedCharacteristic = DbUtils.GetNullableString(reader, "StressedCharacteristic")
+                            }
 
                         };
 
@@ -154,7 +209,7 @@ namespace RollForQuirk.Repositories
         public void AddCharacter(Character character)
         {
             using (var conn = Connection)
-            { 
+            {
                 conn.Open();
 
                 using (var cmd = conn.CreateCommand())
