@@ -1,7 +1,7 @@
 const driveUrl = "api/Drive"
 const fragmentUrl = "api/DriveFragment"
 
-export const getFragment = () =>{
+export const getDriveFragment = () =>{
     return fetch(fragmentUrl).then(res => res.json())
 }
 

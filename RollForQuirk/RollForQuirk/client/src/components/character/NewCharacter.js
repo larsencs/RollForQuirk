@@ -6,12 +6,15 @@ import { addTrait } from "../../modules/TraitManager"
 import { addCharacter } from "../../modules/CharacterManager"
 import { getAllProfessions } from "../../modules/ProfessionManager"
 import { getAllRaces } from "../../modules/RaceManager"
-import { getCount, getTraitbyId, getRandom, getFear, getFlaw, getStress } from "../../modules/TraitManager"
+import { getFear, getFlaw, getStress } from "../../modules/TraitManager"
+import { getCatalyst } from "../../modules/CatalystManager"
+import { getDrive, getDriveFragment } from "../../modules/DriveManager"
 import { getFragment, getQuirk, getTwoQuirks } from "../../modules/QuirkManager"
 import {Button} from "reactstrap"
 
 export const NewCharacter = ({getLoggedInUser}) =>{
 
+    const quirkArr = []
     const navigate = useNavigate()
     const [user, updateUser] = useState()
     const [alignments, setAlignments] = useState([])
@@ -24,7 +27,8 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     const [traits, updateTraits] = useState(false)
     const [showQuirks, updateShowQuirks] = useState(false)
     const [showDrive, updateShowDrive] = useState(false)
-    const [quirks, updateQuirks] = useState()
+    const [quirks, updateQuirks] = useState([])
+    const [characterDrive, updateCharacterDrive] = useState()
     
 
     useEffect(()=>{
@@ -53,28 +57,33 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     }
 
     const generateQuirks = () =>{
-        const quirkArr = []        
+        let fragment = {}
+        let quirk = {}
 
-        getFragment().then(res =>{
-            quirkArr.push(res.fragmentOne)
-            quirkArr.push(res.fragmentTwo)
-            if(res.fragmentOne !== null && res.fragmentTwo !== null)
-            {
-                getQuirk().then(res => quirkArr.push(res))
-            }else{
-                getTwoQuirks().then(res => {
-                    for(let r of res)
-                    {
-                        quirkArr.push(r.characterQuirk)
-                    }
-                })
-            }
-        }).then(() => {
-            updateQuirks(quirkArr)
-            
-        }).then(() => updateShowQuirks(true))
+        const promises = [getFragment().then(res => fragment=res),
+            getTwoQuirks().then(res => quirk=res)]
 
+        Promise.all(promises).then(() => {
+        quirkArr.push(`${quirk[0].characterQuirk} ${fragment.fragmentTwo} ${quirk[1].characterQuirk}`)
+        
+        })
+        
     }
+
+    const generateDrive = () =>{
+        let drive = {}
+        let fragment = {}
+        let catalyst = {}
+        const promises = [getDrive().then(res => drive=res),
+             getDriveFragment().then(res => fragment=res),
+             getCatalyst().then(res => catalyst=res)]
+
+              Promise.all(promises).then(() => {
+                updateCharacterDrive(`${drive.driveTrait} ${fragment.fragmentTwo} ${catalyst.driveCatalyst}`)
+            }).then(updateShowDrive(true))
+    }
+
+
 
     const displayTraits = () =>{
         return (
@@ -86,18 +95,32 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             </>
         )
     }
+    const selectNumberOfQuirks = () =>{
+
+        for(let i = 0; i < 3; i++)
+        {
+            generateQuirks()
+        }
+        updateQuirks(quirkArr)
+        updateShowQuirks(true)
+    }
 
     const displayQuirks = () =>{
         return (
             <>
                 <h3>Quirk(s)</h3>
-                <p>{`${quirks[2]} ${quirks[1]} ${quirks[3]}`}</p>
+                {quirks?.map((q) => <p>{q}</p>)}
             </>
         )
     }
 
     const displayDrive = () =>{
-
+        return (
+            <>
+                <h3>Drive</h3>
+                <p>{characterDrive}</p>
+            </>
+        )
     }
 
     const saveCharacter = () =>{
@@ -153,6 +176,7 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             </FormGroup>
             <FormGroup>
                 {showDrive ? displayDrive(): ""}
+                
             </FormGroup>
             <FormGroup>
                 {showQuirks ? displayQuirks() : ""}
@@ -160,9 +184,9 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             </fieldset>
             </Form>
             <FormGroup>
-                <Button onClick={generateTraits}>Generate Traits</Button>
-                <Button >Generate Drive</Button>
-                <Button onClick={generateQuirks}>Generate Quirks</Button>
+                <Button onClick={generateTraits}>Roll for Traits</Button>
+                {traits ? <Button onClick={generateDrive}>Roll for Drive</Button> : ""}
+                {traits && showDrive ? <Button onClick={selectNumberOfQuirks}>Roll for Quirks</Button>: ""}
             </FormGroup>
         
     
