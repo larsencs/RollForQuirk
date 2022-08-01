@@ -10,25 +10,17 @@ namespace RollForQuirk.Controllers
     public class CharacterController : ControllerBase
     {
         private readonly ICharacterRepository _charRepo;
-        private readonly ITraitRepository _traitRepo;
 
-        public CharacterController(ICharacterRepository charRepo, ITraitRepository traitRepo)
+
+        public CharacterController(ICharacterRepository charRepo)
         {
             _charRepo = charRepo;
-            _traitRepo = traitRepo;
         }
 
         [HttpGet("{firebaseId}")]
         public IActionResult GetByUser(string firebaseId)
         {
-            var character = _charRepo.GetCharactersByUser(firebaseId);
-
-            foreach(var c in character)
-            {
-                var traits = _traitRepo.GetCharacterTraits(c.Id);
-                c.Traits = traits;
-            }
-            
+            var character = _charRepo.GetCharactersByUser(firebaseId);         
 
 
             if (character == null)
@@ -43,7 +35,6 @@ namespace RollForQuirk.Controllers
         public IActionResult GetByCharacterId(int id)
         { 
             var character = _charRepo.GetByCharacterId(id);
-            character.Traits = _traitRepo.GetCharacterTraits(id);
 
             if (character == null)
             {

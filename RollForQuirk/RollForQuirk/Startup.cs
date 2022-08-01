@@ -33,10 +33,17 @@ namespace RollForQuirk
             services.AddTransient<IAlignmentRepository, AlignmentRepository>();
             services.AddTransient<IProfessionRepository, ProfessionRepository>();
             services.AddTransient<IRaceRepository, RaceRepository>();
-            services.AddTransient<ITraitRepository, TraitRepository>();
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<ICharacterRepository, CharacterRepository>();
-            
+            services.AddTransient<IFearRepository, FearRepository>();
+            services.AddTransient<IFlawRepository, FlawRepository>();
+            services.AddTransient<IStressRepository, StressRepository>();
+            services.AddTransient<IQuirkRepository, QuirkRepository>();
+            services.AddTransient<IQuirkFragmentRepository, QuirkFragmentRepository>();
+            services.AddTransient<IDriveFragmentRepository, DriveFragmentRepository>();
+            services.AddTransient<IDriveRepository, DriveRepository>();
+            services.AddTransient<ICatalystRepository, CatalystRepository>();
+
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
             services

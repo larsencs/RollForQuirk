@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../../modules/AuthManager.js";
 import { Link } from "react-router-dom";
+import { BsFileX, BsSlack } from "react-icons/bs";
 
 export const Login = () =>{
     const navigate = useNavigate();
@@ -18,13 +19,14 @@ export const Login = () =>{
     };
 
     return (
-        <Form>
+        <div className="login-container">
+        <Form className="login-form">
             <fieldset>
                 <FormGroup>
                     <input id="user-email" placeholder="Email Address" type="text" onChange={(e) => setEmail(e.target.value)}></input>
                 </FormGroup>
                 <FormGroup>
-                    <input id="user-pwrd" placeholder="Password" type="text" onChange={(e) => setPassword(e.target.value)}></input>
+                    <input id="user-pwrd" placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)}></input>
                 </FormGroup>
                 <FormGroup>
                     <Button onClick={loginSubmit}>Submit</Button>
@@ -34,5 +36,6 @@ export const Login = () =>{
                 </em>
             </fieldset>
         </Form>
+        </div>
     )
 }

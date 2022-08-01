@@ -7,15 +7,15 @@ export const NavBar = () =>{
     const navigate = useNavigate()
 
     return(
-<nav className="navbar navbar-expand-lg navbar-light bg-dark">
+<nav className="navbar navbar-expand navbar-light bg-dark">
   <div className="container-fluid">
-    <a className="navbar-brand" onClick={() => navigate("/")} style={{cursor: "pointer", color: "white"}}>Home</a>
+    <a className="nav-link mx-2" onClick={() => navigate("/")} style={{cursor: "pointer", color: "white"}}>Home</a>
     <div className="collapse navbar-collapse">
       <div className="navbar-nav">
-        <a className="nav-link" onClick={() => navigate("create")} style={{cursor: "pointer", color: "white"}}>New Character</a>
+        <a className="nav-link mx-2" onClick={() => navigate("create")} style={{cursor: "pointer", color: "white"}}>New Character</a>
       </div>
     </div>
-    <div><a className="nav-link" style={{cursor: "pointer", color: "white"}} onClick={()=>logout()}>Logout</a></div>
+    <div><a className="nav-link mx-2" style={{cursor: "pointer", color: "white"}} onClick={()=>logout()}>Logout</a></div>
   </div>
 </nav>
     )
