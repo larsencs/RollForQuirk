@@ -41,7 +41,7 @@ export const CharacterCard = ({character, updateCharacters, user}) =>{
     return (
         <>
             
-            <Card className="container-sm col-md-4" onClick={()=> updateIsOpen(!isOpen)} style={{cursor: 'pointer'}}>
+            <Card className="character-card-main container-sm col-md-4" onClick={()=> updateIsOpen(!isOpen)} style={{cursor: 'pointer', border: '1px solid black', boxShadow: '0px 0px 5px black'}}>
                 <CardImg src={`/images/${character?.characterProfession?.characterProfession.toLowerCase()}-symbol.svg`} style={imageSize}/>
                 <CardImgOverlay>
                 <CardTitle className="bg-">{character?.characterName}</CardTitle>

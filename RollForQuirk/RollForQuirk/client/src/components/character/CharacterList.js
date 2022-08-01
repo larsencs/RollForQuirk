@@ -26,7 +26,7 @@ export const CharacterList = ({getLoggedInUser}) =>{
 
     return(
         <>
-        <section>
+        <section className="main-card-container">
             {characters == null ? "You do not currently have any characters" : characters.map(res => <CharacterCard key={res.Id} character={res} updateCharacters={updateCharacters} user={user}/>)}
         </section>
         </>

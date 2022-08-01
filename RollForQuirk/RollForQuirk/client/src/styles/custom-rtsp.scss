@@ -1,28 +1,25 @@
+@import "variables.scss";
 
 .new-char-sheet{
     display:flex;
     justify-content: center;
     margin-top: 20px;
-
 }
+
 
 .new-char-form-container{
 width: 75rem;
 height: 34.375rem;
-
-
 }
+
 .character-img{
 border-right: 3px solid red;
-background-image: url('/public/images/barbarian-symbol.svg');
 background-size: contain;
 background-repeat: no-repeat;
 background-position: center;
 margin-top: 5px;
-margin-bottom: 5px;
-    
+margin-bottom: 5px;    
 }
-
 
 form{
 
@@ -52,5 +49,31 @@ label{
 }
 .quirks-group{
     text-align: left;
+}
+.character-modal{
+    width: 75rem;
+    height: 34.375rem;
+}
+.character-card-main{
+    margin-top: 15px;
+    margin-bottom: 3px;
+    
+}
+.login-form{
+    border: 1px solid black;
+    box-shadow: 0px 0px 5px black;
+    max-width: 500px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+}
+.login-form, input {
+    margin-top: 7rem;
+    width: 75%;
+    
+}
+.login-container{
+    display:flex;
+    justify-content: center;
 }
 

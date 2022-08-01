@@ -13,7 +13,7 @@ import {Button} from "reactstrap"
 
 export const NewCharacter = ({getLoggedInUser}) =>{
 
-    const quirkArr = []
+    
     const navigate = useNavigate()
     const [user, updateUser] = useState()
     const [alignments, setAlignments] = useState([])
@@ -60,18 +60,22 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     updateTraits(true)
         
     }
+    const quirkArr = []
 
     const generateQuirks = () =>{
         let fragment = {}
-        let quirk = {}
-
-        const promises = [getFragment().then(res => fragment=res),
-            getTwoQuirks().then(res => quirk=res)]
-
-        Promise.all(promises).then(() => {
-        quirkArr.push(`${quirk[0].characterQuirk} ${fragment.fragmentTwo} ${quirk[1].characterQuirk}`)
+        let quirk = []
+        const promises = []
         
-        })
+
+        for(let i = 0; i< 3; i++)
+        {
+
+            promises.push(getFragment().then(res => fragment=res),
+                getTwoQuirks().then(res => quirk=res).then(() => quirkArr.push(`${quirk[0].characterQuirk} ${fragment.fragmentTwo} ${quirk[1].characterQuirk}`)))
+        }
+            Promise.all(promises).then(() => updateQuirks(quirkArr))
+        
         
     }
 
@@ -100,45 +104,43 @@ export const NewCharacter = ({getLoggedInUser}) =>{
 
         const traitArr = [
         <div className="trait-div">
-            <p value={flaw.id}>Flaw:</p>
-            <p value={fear.id}>Afraid of:</p>
-            <p value={stress.id}>When stressed your character is:</p>
+            <p value={flaw.id}><strong>Flaw:</strong></p>
+            <p value={fear.id}><strong>Afraid of:</strong></p>
+            <p value={stress.id}><strong>When stressed your character is:</strong></p>
         </div>,
                 <div className="trait-div">
-                    <p value={flaw.id}>Flaw: {flaw.flawCharacteristic}</p>
-                    <p value={fear.id}>Afraid of: {fear.fearCharacteristic}</p>
-                    <p value={stress.id}>When stressed your character is: {stress.stressedCharacteristic}</p>
+                    <p value={flaw.id}><strong>Flaw: </strong>{flaw.flawCharacteristic}</p>
+                    <p value={fear.id}><strong>Afraid of: </strong>{fear.fearCharacteristic}</p>
+                    <p value={stress.id}><strong>When stressed your character is: </strong>{stress.stressedCharacteristic}</p>
                 </div>
         ]
         return (
             traitArr[index]
         )
     }
-    const selectNumberOfQuirks = () =>{
 
-        for(let i = 0; i < 3; i++)
-        {
-            generateQuirks()
-            updateQuirks(quirkArr)
-        }
-        
-        updateShowQuirks(true)
-        updateQuirkSwitch(quirkSwitch)
+    const controlInput = (event) =>{
+        let target = {...character}
+
+        target[event.target.id] = event.target.value
+
+        updateCharacter(target)
     }
+
 
     const displayQuirks = () =>{
 
         const quirkArr = []
         return (
-            <>
-                {quirks?.map((q) => <p>{q}</p>)}
-            </>
+            <ul>
+                {quirks?.map((q) => <li>{q}</li>)}
+            </ul>
         )
     }
 
     const displayDrive = (index) =>{
 
-        const driveArr = [<p>Your character is driven by a need to:</p>, <p>Your character is driven by a need to: {characterDrive}</p>]
+        const driveArr = [<p><strong>Your character is driven by a need to:</strong></p>, <p><strong>Your character is driven by a need to: </strong> {characterDrive}</p>]
         return (
             
                 driveArr[index]
@@ -169,33 +171,33 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     return (
        <div className="new-char-sheet">
          <div className="new-char-form-container container-md-sm row">
-            <div class="character-img col-md-3">
+            <div class="character-img col-md-3" style={{backgroundImage: `url(/images/${professions[character?.professionId-1]?.characterProfession.toLowerCase()}-symbol.svg)`}}>
                 {/* <img src={`/images/monk-symbol.svg`}/> */}
             </div>
         <Form className="col-md-3 m-2">
         <fieldset>
 
             <FormGroup row>
-                <label htmlFor="name">Character Name: </label>
-                <input type="text" placeholder="character name" id="characterName" onChange={(e) => character.characterName = e.target.value}></input>
+                <label htmlFor="name"><strong>Character Name:</strong> </label>
+                <input type="text" placeholder="character name" id="characterName" onChange={controlInput}></input>
             </FormGroup>
             <FormGroup row>
-            <label htmlFor="race-select">Character Race: </label>
-                <select id="raceId" onChange={(e) => character.raceId = e.target.value}>
+            <label htmlFor="race-select"><strong>Character Race:</strong> </label>
+                <select id="raceId" onChange={controlInput}>
                     <option disabled={true} selected="selected">Choose a race</option>
                     {races.map(res => <option value={res.id}>{res.characterRace}</option>)}
                 </select>
             </FormGroup>
             <FormGroup row>
-            <label htmlFor="class-select">Character a class: </label>
-                <select id="professionId" onChange={(e)=> character.professionId = e.target.value}>
+            <label htmlFor="class-select"><strong>Character class:</strong> </label>
+                <select id="professionId" onChange={controlInput}>
                     <option disabled={true} selected="selected">Choose a class</option>
                     {professions.map(res => <option value={res.id}>{res.characterProfession}</option>)}
                 </select>
             </FormGroup>
             <FormGroup row>
-            <label htmlFor="race-select">Character an alignment: </label>
-                <select id="alignmentId" onChange={(e)=> character.alignmentId =e.target.value}>
+            <label htmlFor="race-select"><strong>Character alignment:</strong> </label>
+                <select id="alignmentId" onChange={controlInput}>
                     <option disabled={true} selected="selected">Choose an alignment</option>
                     {alignments.map(res => <option value={res.id}>{res.characterAlignment}</option>)}
                 </select>
@@ -204,7 +206,7 @@ export const NewCharacter = ({getLoggedInUser}) =>{
                 <h5>Roll for:</h5>
             {character.traitId  && character.raceId  && character.alignmentId  ? <Button disabled={true}>Traits</Button> : <Button onClick={generateTraits} className="m-1">Traits</Button>}
             {traits ? <Button onClick={generateDrive}>Drive</Button> : ""}
-            {traits && showDrive ? <Button onClick={selectNumberOfQuirks} className="m-1">Quirks</Button>: ""}
+            {traits && showDrive ? <Button onClick={generateQuirks} className="m-1">Quirks</Button>: ""}
             </FormGroup>
             </fieldset>
             </Form>
