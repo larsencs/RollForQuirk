@@ -23,7 +23,7 @@ namespace RollForQuirk.Repositories
                 {
                     cmd.CommandText = @"SELECT c.Id AS CharacterId, c.CharacterName, c.ProfessionId, c.RaceId,
                                                c.AlignmentId, c.UserProfileId, c.FlawId, c.FearId, c.StressId,
-                                               c.CharacterDrive, c.QuirkOne, c.QuirkTwo, c.QuirkThree
+                                               c.CharacterDrive, c.QuirkOne, c.QuirkTwo, c.QuirkThree,
 
                                                up.FirebaseId,
 
@@ -69,6 +69,10 @@ namespace RollForQuirk.Repositories
                                 FlawId = DbUtils.GetNullableInt(reader, "FlawId"),
                                 FearId = DbUtils.GetNullableInt(reader, "FearId"),
                                 StressId = DbUtils.GetNullableInt(reader, "StressId"),
+                                CharacterDrive=DbUtils.GetNullableString(reader, "CharacterDrive"),
+                                QuirkOne=DbUtils.GetNullableString(reader, "QuirkOne"),
+                                QuirkTwo=DbUtils.GetNullableString(reader, "QuirkTwo"),
+                                QuirkThree=DbUtils.GetNullableString(reader, "QuirkThree"),
                                 CharacterRace = new Race()
                                 {
                                     Id = DbUtils.GetNullableInt(reader, "raceId"),

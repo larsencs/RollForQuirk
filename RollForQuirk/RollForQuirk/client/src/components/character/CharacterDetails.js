@@ -17,9 +17,17 @@ export const CharacterDetails = ({character, isOpen, updateIsOpen, updateEdit, e
             <p>Race: {character?.characterRace?.characterRace}</p>
             <p>Class: {character?.characterProfession?.characterProfession}</p>
             <p>Alignment: {character?.characterAlignment?.characterAlignment} </p>
-            <p>Flaw: {character?.flaw?.flawCharacteristic}</p>
+            <h3>Flaws</h3>
+            <p>Personality: {character?.flaw?.flawCharacteristic}</p>
             <p>Is afraid of: {character?.fear?.fearCharacteristic}</p>
-            <p>When stressed {character.characterName} is: {character?.stress?.stressedCharacteristic}</p>     
+            <p>When stressed: {character?.stress?.stressedCharacteristic}</p>
+            <h3>Drive</h3>
+            <p>Driven by: {character.characterDrive}</p>
+            <h3>Quirks</h3>
+            <p>{character.quirkOne}</p>
+            <p>{character.quirkTwo}</p>
+            <p>{character.quirkThree}</p>
+
         </ModalBody>
         
         <ModalFooter><Button className="btn btn-danger" onClick={handleDelete}>Delete</Button></ModalFooter>

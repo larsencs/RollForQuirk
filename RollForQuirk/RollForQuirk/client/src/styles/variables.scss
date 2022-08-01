@@ -1,0 +1,7 @@
+$breakpoints: ('mobile' : 320px, 'tablet' : 740px);
+
+
+@mixin respond-to($breakpoint){
+    $value: map-get($breakpoints, $breakpoint);
+
+}

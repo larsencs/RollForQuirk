@@ -2,14 +2,13 @@ import { Form, FormGroup } from "reactstrap"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { getAllAlignments } from "../../modules/AlignmentManager"
-import { addTrait } from "../../modules/TraitManager"
 import { addCharacter } from "../../modules/CharacterManager"
 import { getAllProfessions } from "../../modules/ProfessionManager"
 import { getAllRaces } from "../../modules/RaceManager"
 import { getFear, getFlaw, getStress } from "../../modules/TraitManager"
 import { getCatalyst } from "../../modules/CatalystManager"
 import { getDrive, getDriveFragment } from "../../modules/DriveManager"
-import { getFragment, getQuirk, getTwoQuirks } from "../../modules/QuirkManager"
+import { getFragment, getTwoQuirks } from "../../modules/QuirkManager"
 import {Button} from "reactstrap"
 
 export const NewCharacter = ({getLoggedInUser}) =>{
@@ -21,6 +20,7 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     const [races, setRaces] = useState([])
     const [professions, setProfessions] = useState([])
     const [character, updateCharacter] = useState({})
+    const [quirkSwitch, updateQuirkSwitch] = useState(false)
     const [fear, updateFear] = useState({})
     const [flaw, updateFlaw] = useState({})
     const [stress, updateStress] = useState({})
@@ -34,6 +34,11 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     useEffect(()=>{
         getAllAlignments().then(res => setAlignments(res))
     },[])
+
+    useEffect(()=>{
+        updateQuirks(quirkArr)
+        updateShowQuirks(true)
+    },[quirkSwitch])
 
     useEffect(()=>{
         getLoggedInUser().then(res => updateUser(res))
@@ -52,7 +57,7 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     getFear().then(res => updateFear(res))
     getFlaw().then(res => updateFlaw(res))
     getStress().then(res => updateStress(res))
-    updateTraits(true)       
+    updateTraits(true)
         
     }
 
@@ -83,16 +88,30 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             }).then(updateShowDrive(true))
     }
 
+    const findProfession = () =>{
+        let prof = professions.find(e => e.id === character.professionId)
+
+        return prof.characterProfession.toLowerCase()
+    }
 
 
-    const displayTraits = () =>{
+
+    const displayTraits = (index) =>{
+
+        const traitArr = [
+        <div className="trait-div">
+            <p value={flaw.id}>Flaw:</p>
+            <p value={fear.id}>Afraid of:</p>
+            <p value={stress.id}>When stressed your character is:</p>
+        </div>,
+                <div className="trait-div">
+                    <p value={flaw.id}>Flaw: {flaw.flawCharacteristic}</p>
+                    <p value={fear.id}>Afraid of: {fear.fearCharacteristic}</p>
+                    <p value={stress.id}>When stressed your character is: {stress.stressedCharacteristic}</p>
+                </div>
+        ]
         return (
-            <>
-                <h3>Traits</h3>
-                <p value={flaw.Id}>Flaw: {flaw.flawCharacteristic}</p>
-                <p value={fear.Id}>Afraid of: {fear.fearCharacteristic}</p>
-                <p value={stress.Id}>When stressed your character is: {stress.stressedCharacteristic}</p>
-            </>
+            traitArr[index]
         )
     }
     const selectNumberOfQuirks = () =>{
@@ -100,26 +119,30 @@ export const NewCharacter = ({getLoggedInUser}) =>{
         for(let i = 0; i < 3; i++)
         {
             generateQuirks()
+            updateQuirks(quirkArr)
         }
-        updateQuirks(quirkArr)
+        
         updateShowQuirks(true)
+        updateQuirkSwitch(quirkSwitch)
     }
 
     const displayQuirks = () =>{
+
+        const quirkArr = []
         return (
             <>
-                <h3>Quirk(s)</h3>
                 {quirks?.map((q) => <p>{q}</p>)}
             </>
         )
     }
 
-    const displayDrive = () =>{
+    const displayDrive = (index) =>{
+
+        const driveArr = [<p>Your character is driven by a need to:</p>, <p>Your character is driven by a need to: {characterDrive}</p>]
         return (
-            <>
-                <h3>Drive</h3>
-                <p>{characterDrive}</p>
-            </>
+            
+                driveArr[index]
+            
         )
     }
 
@@ -131,21 +154,27 @@ export const NewCharacter = ({getLoggedInUser}) =>{
         else{
             const newChar = {...character}
             newChar.userProfileId = user.id
-            console.log(newChar)
-            addCharacter(newChar)
-            // addCharacter(newChar).then((res) =>{
-            //     const promises = []
-            //     traits.forEach(t => promises.push(addTrait({traitId: t.id, characterId: res.id})))
-            //     Promise.all(promises).then(() => navigate("/"))
-                    
-            // })
+            newChar.fearId = fear.id
+            newChar.stressId = stress.id
+            newChar.flawId = flaw.id
+            newChar.characterDrive = characterDrive
+            newChar.quirkOne = quirks[0]
+            newChar.quirkTwo = quirks[1]
+            newChar.quirkThree = quirks[2]
+            addCharacter(newChar).then(() => navigate("/"))
+
         }
     }
 
     return (
-        <div className="">
-            <Form className="container-sm col-md-3">
+       <div className="new-char-sheet">
+         <div className="new-char-form-container container-md-sm row">
+            <div class="character-img col-md-3">
+                {/* <img src={`/images/monk-symbol.svg`}/> */}
+            </div>
+        <Form className="col-md-3 m-2">
         <fieldset>
+
             <FormGroup row>
                 <label htmlFor="name">Character Name: </label>
                 <input type="text" placeholder="character name" id="characterName" onChange={(e) => character.characterName = e.target.value}></input>
@@ -172,24 +201,32 @@ export const NewCharacter = ({getLoggedInUser}) =>{
                 </select>
             </FormGroup>
             <FormGroup>
-                {traits ? displayTraits() : "" }
-            </FormGroup>
-            <FormGroup>
-                {showDrive ? displayDrive(): ""}
-                
-            </FormGroup>
-            <FormGroup>
-                {showQuirks ? displayQuirks() : ""}
+                <h5>Roll for:</h5>
+            {character.traitId  && character.raceId  && character.alignmentId  ? <Button disabled={true}>Traits</Button> : <Button onClick={generateTraits} className="m-1">Traits</Button>}
+            {traits ? <Button onClick={generateDrive}>Drive</Button> : ""}
+            {traits && showDrive ? <Button onClick={selectNumberOfQuirks} className="m-1">Quirks</Button>: ""}
             </FormGroup>
             </fieldset>
             </Form>
-            <FormGroup>
-                <Button onClick={generateTraits}>Roll for Traits</Button>
-                {traits ? <Button onClick={generateDrive}>Roll for Drive</Button> : ""}
-                {traits && showDrive ? <Button onClick={selectNumberOfQuirks}>Roll for Quirks</Button>: ""}
+            <div className="trait-drive-quirk-div col">
+            <FormGroup className="traits-group">
+                <h4>Traits</h4>
+                {traits ? displayTraits(1) : displayTraits(0) }  
             </FormGroup>
-        
-    
+            <FormGroup className="drive-group">
+                <h4>Drive</h4>
+                {showDrive ? displayDrive(1): displayDrive(0)}  
+            </FormGroup>
+            <FormGroup className="quirks-group">
+                <h4>Quirks</h4>
+                {showQuirks ? displayQuirks() : ""}      
+            </FormGroup>
+            <FormGroup>
+
+                {traits && showDrive && showQuirks ? <Button onClick={saveCharacter}>Save</Button> : <Button disabled={true}>Save</Button>}
+            </FormGroup>
+            </div>
         </div>
+       </div>
     )
 }

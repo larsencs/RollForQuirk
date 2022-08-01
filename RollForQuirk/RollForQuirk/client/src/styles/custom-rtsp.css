@@ -1,0 +1,49 @@
+.new-char-sheet {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.new-char-form-container {
+  width: 75rem;
+  height: 34.375rem;
+}
+
+.character-img {
+  border-right: 3px solid red;
+  background-image: url("/public/images/barbarian-symbol.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+form {
+  padding: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+label {
+  margin: 5px;
+}
+
+.trait-drive-quirk-div {
+  border-left: 3px solid red;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 3px;
+}
+
+.traits-group {
+  text-align: left;
+}
+
+.drive-group {
+  text-align: left;
+}
+
+.quirks-group {
+  text-align: left;
+}/*# sourceMappingURL=custom-rtsp.css.map */

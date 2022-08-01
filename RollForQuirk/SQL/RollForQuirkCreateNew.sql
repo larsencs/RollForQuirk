@@ -93,7 +93,7 @@ CREATE TABLE [DriveFragment] (
 GO
 
 CREATE TABLE [Character] (
-  [Id] int PRIMARY KEY NOT NULL,
+  [Id] int PRIMARY KEY IDENTITY(1, 1),
   [CharacterName] nvarchar(255) NOT NULL,
   [ProfessionId] int NOT NULL,
   [RaceId] int NOT NULL,
