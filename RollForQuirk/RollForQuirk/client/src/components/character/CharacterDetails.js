@@ -39,7 +39,7 @@ export const CharacterDetails = ({character, isOpen, updateIsOpen, updateEdit, e
             <div className="border-div"></div>
           </ModalBody>
           <div className="modal-btn-div">
-          <Button className="btn btn-danger">Delete</Button>
+          <Button className="btn btn-danger" onClick={handleDelete}>Delete</Button>
           </div>
           
           
