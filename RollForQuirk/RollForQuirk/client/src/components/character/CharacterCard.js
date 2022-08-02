@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { Card, CardBody, CardTitle, CardSubtitle, CardImg, CardImgOverlay } from "reactstrap"
+import { Card, CardBody, CardTitle, CardSubtitle, CardImg, CardImgOverlay, CardText } from "reactstrap"
 import { CharacterDetails } from "./CharacterDetails"
 import { editCharacter } from "../../modules/CharacterManager"
 import { deleteCharacter } from "../../modules/CharacterManager"
@@ -41,16 +41,19 @@ export const CharacterCard = ({character, updateCharacters, user}) =>{
     return (
         <>
             
-            <Card className="character-card-main container-sm col-md-4" onClick={()=> updateIsOpen(!isOpen)} style={{cursor: 'pointer', border: '1px solid black', boxShadow: '0px 0px 5px black'}}>
+            <Card className="character-card-main container-sm col-md-2 m-1" onClick={()=> updateIsOpen(!isOpen)} style={{cursor: 'pointer', border: '1px solid black', boxShadow: '0px 0px 5px black'}}>
+
+                
+                <CardTitle className="bg-"><h3>{character?.characterName}</h3></CardTitle>
+                <div>
                 <CardImg src={`/images/${character?.characterProfession?.characterProfession.toLowerCase()}-symbol.svg`} style={imageSize}/>
-                <CardImgOverlay>
-                <CardTitle className="bg-">{character?.characterName}</CardTitle>
+                </div>
                 <CardBody>
-                    <CardSubtitle>Race: {character?.characterRace?.characterRace}</CardSubtitle>
-                    <CardSubtitle>Class: {character?.characterProfession?.characterProfession}</CardSubtitle>
-                    <CardSubtitle>Alignment: {character?.characterAlignment?.characterAlignment} </CardSubtitle>
+                    <CardText>Race: {character?.characterRace?.characterRace}</CardText>
+                    <CardText>Class: {character?.characterProfession?.characterProfession}</CardText>
+                    <CardText>Alignment: {character?.characterAlignment?.characterAlignment} </CardText>
                 </CardBody>
-                </CardImgOverlay>
+                
             </Card>
             <CharacterDetails character={character} isOpen={isOpen} updateEdit={updateEdit} edit={edit} handleDelete={handleDelete} handleKeyPress={handleKeyPress} updateIsOpen={updateIsOpen}/>
         </>

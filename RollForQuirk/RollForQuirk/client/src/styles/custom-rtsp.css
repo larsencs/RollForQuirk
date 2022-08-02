@@ -3,58 +3,59 @@
   justify-content: center;
   margin-top: 20px;
 }
-
-.new-char-form-container {
+.new-char-sheet .new-char-form-container {
   width: 75rem;
   height: 34.375rem;
 }
-
-.character-img {
-  border-right: 3px solid red;
+.new-char-sheet .character-img {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  margin-right: 10px;
+  margin-top: 5px;
+  padding: 15px;
+}
+.new-char-sheet form {
+  align-self: center;
+  padding: 20px;
   margin-top: 5px;
   margin-bottom: 5px;
+  border-left: 3px solid red;
+  border-right: 3px solid red;
 }
-
-form {
-  padding: 3px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-label {
+.new-char-sheet label {
   margin: 5px;
 }
-
-.trait-drive-quirk-div {
-  border-left: 3px solid red;
+.new-char-sheet .trait-drive-quirk-div {
   margin-top: 3px;
   margin-bottom: 3px;
-  padding: 3px;
+  padding: 15px;
+  margin-left: 10px;
+  align-self: center;
 }
-
-.traits-group {
+.new-char-sheet .traits-group {
+  text-align: left;
+}
+.new-char-sheet .drive-group {
+  text-align: left;
+}
+.new-char-sheet .quirks-group {
   text-align: left;
 }
 
-.drive-group {
-  text-align: left;
+.navbar {
+  background: linear-gradient(to left, white 0%, rgb(29, 29, 29) 50%, white 100%) left bottom #777 no-repeat;
 }
-
-.quirks-group {
-  text-align: left;
+.navbar a {
+  color: black;
 }
 
 .character-modal {
   width: 75rem;
   height: 34.375rem;
 }
-
-.character-card-main {
-  margin-top: 15px;
-  margin-bottom: 3px;
+.row {
+  justify-content: center;
 }
 
 .login-form {
@@ -64,13 +65,49 @@ label {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
-
-.login-form, input {
+.login-form .login-form, .login-form input {
   margin-top: 7rem;
   width: 75%;
 }
-
-.login-container {
+.login-form .login-container {
   display: flex;
   justify-content: center;
+}
+
+.character-modal .modal-header {
+  border: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+}
+.character-modal .modal-div {
+  margin-top: 1rem;
+}
+.character-modal #modal-trait-div {
+  margin-top: 0px;
+}
+.character-modal h3 {
+  color: rgb(119, 118, 118);
+}
+.character-modal h4 {
+  text-align: center;
+  background-image: linear-gradient(to left, white 0%, rgb(70, 70, 70) 50%, white 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.character-modal .modal-btn-div {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 1rem;
+}
+.character-modal .border-div {
+  text-align: center;
+  padding-bottom: 5px;
+  background: linear-gradient(to left, white 0%, red 50%, white 100%) left bottom #777 no-repeat;
+  background-size: 100% 5px; /* if linear-gradient, we need to resize it */
 }/*# sourceMappingURL=custom-rtsp.css.map */

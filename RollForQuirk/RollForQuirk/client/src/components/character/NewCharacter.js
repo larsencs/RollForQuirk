@@ -171,10 +171,13 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     return (
        <div className="new-char-sheet">
          <div className="new-char-form-container container-md-sm row">
-            <div class="character-img col-md-3" style={{backgroundImage: `url(/images/${professions[character?.professionId-1]?.characterProfession.toLowerCase()}-symbol.svg)`}}>
+
+            <div className="character-img col-md-3" style={{backgroundImage: `url(/images/${professions[character?.professionId-1]?.characterProfession.toLowerCase()}-symbol.svg)`}}>
                 {/* <img src={`/images/monk-symbol.svg`}/> */}
             </div>
+
         <Form className="col-md-3 m-2">
+
         <fieldset>
 
             <FormGroup row>
@@ -207,8 +210,12 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             {character.traitId  && character.raceId  && character.alignmentId  ? <Button disabled={true}>Traits</Button> : <Button onClick={generateTraits} className="m-1">Traits</Button>}
             {traits ? <Button onClick={generateDrive}>Drive</Button> : ""}
             {traits && showDrive ? <Button onClick={generateQuirks} className="m-1">Quirks</Button>: ""}
+            <div>
+            {traits && showDrive && quirks.length > 0 && character.professionId && character.raceId && character.alignmentId && character.characterName ? <Button onClick={saveCharacter}>Save</Button> : <Button disabled={true}>Save</Button>}
+            </div>
             </FormGroup>
             </fieldset>
+
             </Form>
             <div className="trait-drive-quirk-div col">
             <FormGroup className="traits-group">
@@ -225,7 +232,7 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             </FormGroup>
             <FormGroup>
 
-                {traits && showDrive && showQuirks ? <Button onClick={saveCharacter}>Save</Button> : <Button disabled={true}>Save</Button>}
+                
             </FormGroup>
             </div>
         </div>
