@@ -1,7 +1,13 @@
+.App {
+  background: url("/public/images/parchment-edited.png");
+  background-size: cover;
+  background-repeat: repeat;
+}
+
 .new-char-sheet {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin: 1em;
 }
 .new-char-sheet .new-char-form-container {
   width: 75rem;
@@ -44,6 +50,7 @@
 }
 
 .navbar {
+  opacity: 0.4;
   background: linear-gradient(to left, white 0%, rgb(29, 29, 29) 50%, white 100%) left bottom #777 no-repeat;
 }
 .navbar a {
@@ -58,20 +65,15 @@
   justify-content: center;
 }
 
-.login-form {
+h3 {
+  color: rgb(119, 118, 118);
+}
+
+.character-card-main {
+  background-color: transparent;
   border: 1px solid black;
   box-shadow: 0px 0px 5px black;
-  max-width: 500px;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-.login-form .login-form, .login-form input {
-  margin-top: 7rem;
-  width: 75%;
-}
-.login-form .login-container {
-  display: flex;
-  justify-content: center;
+  cursor: pointer;
 }
 
 .character-modal .modal-header {
@@ -86,9 +88,6 @@
 }
 .character-modal #modal-trait-div {
   margin-top: 0px;
-}
-.character-modal h3 {
-  color: rgb(119, 118, 118);
 }
 .character-modal h4 {
   text-align: center;

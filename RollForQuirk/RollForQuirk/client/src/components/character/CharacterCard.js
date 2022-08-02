@@ -41,7 +41,7 @@ export const CharacterCard = ({character, updateCharacters, user}) =>{
     return (
         <>
             
-            <Card className="character-card-main container-sm col-md-2 m-1" onClick={()=> updateIsOpen(!isOpen)} style={{cursor: 'pointer', border: '1px solid black', boxShadow: '0px 0px 5px black'}}>
+            <Card className="character-card-main container-sm col-md-3 m-1" onClick={()=> updateIsOpen(!isOpen)}>
 
                 
                 <CardTitle className="bg-"><h3>{character?.characterName}</h3></CardTitle>

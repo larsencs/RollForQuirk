@@ -1,11 +1,15 @@
 @import "variables.scss";
 
-
+.App{
+    background: url("/public/images/parchment-edited.png");
+    background-size: cover;
+    background-repeat: repeat;
+}
 
 .new-char-sheet{
     display:flex;
     justify-content: center;
-    margin-top: 20px;
+    margin: 1em;
 
     .new-char-form-container{
         width: 75rem;
@@ -55,6 +59,7 @@
 
 }
 .navbar{
+    opacity: .4;
     background: /* gradient can be an image */
     linear-gradient(
       to left, 
@@ -76,6 +81,7 @@
 .character-modal{
     width: 75rem;
     height: 34.375rem;
+    ;
 
     @media screen and (max-width: '320px'){
 
@@ -85,32 +91,18 @@
     }
 }
 
-
-.character-card-main{
-
-}
 .row{
     justify-content: center;
 }
 
-.login-form{
+h3{
+    color:  rgb(119, 118, 118);
+}
+.character-card-main{
+    background-color: rgba(0, 0, 0, 0, 0.5);
     border: 1px solid black;
     box-shadow: 0px 0px 5px black;
-    max-width: 500px;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-
-
-    .login-form, input {
-        margin-top: 7rem;
-        width: 75%;
-        
-    }
-    .login-container{
-        display:flex;
-        justify-content: center;
-    }
-
+    cursor: pointer;
 }
 
 .character-modal{
@@ -129,9 +121,7 @@
     #modal-trait-div{
         margin-top: 0px;
     }
-    h3{
-        color:  rgb(119, 118, 118);
-    }
+
     h4{
         text-align: center;
         background-image: linear-gradient(
