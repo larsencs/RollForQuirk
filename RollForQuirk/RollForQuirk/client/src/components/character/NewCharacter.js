@@ -118,9 +118,9 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             <p value={stress.id}><strong>When stressed your character is:</strong></p>
         </div>,
                 <div className="trait-div">
-                    <p value={flaw.id}><strong>Flaw: </strong>{flaw.flawCharacteristic}</p>
-                    <p value={fear.id}><strong>Afraid of: </strong>{fear.fearCharacteristic}</p>
-                    <p value={stress.id}><strong>When stressed your character is: </strong>{stress.stressedCharacteristic}</p>
+                    <p value={flaw.id} onClick={randomFlaw} style={{cursor: 'pointer'}}><strong>Flaw: </strong>{flaw.flawCharacteristic}</p>
+                    <p value={fear.id} onClick={randomFear} style={{cursor: 'pointer'}}><strong>Afraid of: </strong>{fear.fearCharacteristic}</p>
+                    <p value={stress.id} onClick={randomStress} style={{cursor: 'pointer'}}><strong>When stressed your character is: </strong>{stress.stressedCharacteristic}</p>
                 </div>
         ]
         return (
@@ -130,8 +130,6 @@ export const NewCharacter = ({getLoggedInUser}) =>{
 
     const controlInput = (event) =>{
         let target = {...character}
-
-        
 
         target[event.target.id] = event.target.value
 
@@ -159,6 +157,16 @@ export const NewCharacter = ({getLoggedInUser}) =>{
         
     }
 
+    const randomFlaw = () =>{
+        getFlaw().then(res => updateFlaw(res))
+    }
+    const randomFear = () => {
+        getFear().then(res => updateFear(res))
+    }
+    const randomStress = () =>{
+        getStress().then(res => updateStress(res))
+    }
+
 
     const displayQuirks = () =>{
 
@@ -168,14 +176,14 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             <ul>
                 {quirks?.map((q) => <li id={q.id} onClick={(e) => rerollQuirk(e)} style={{cursor: 'pointer'}}>{q}</li>)}
             </ul>
-            <div style={{textAlign: 'center'}}>(<em>click each quirk to reroll</em>)</div>
+            <div style={{textAlign: 'center'}}>(<em>click each trait, drive, or quirk to reroll</em>)</div>
             </>
         )
     }
 
     const displayDrive = (index) =>{
 
-        const driveArr = [<p><strong>Your character is driven by a need to:</strong></p>, <p><strong>Your character is driven by a need to: </strong> {characterDrive}</p>]
+        const driveArr = [<p><strong>Your character is driven by a need to:</strong></p>, <p onClick={generateDrive} style={{cursor: 'pointer'}}><strong>Your character is driven by a need to: </strong> {characterDrive}</p>]
         return (
             
                 driveArr[index]
