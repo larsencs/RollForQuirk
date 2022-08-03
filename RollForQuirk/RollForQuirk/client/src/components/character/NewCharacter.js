@@ -109,14 +109,6 @@ export const NewCharacter = ({getLoggedInUser}) =>{
             }).then(updateShowDrive(true))
     }
 
-    const findProfession = () =>{
-        let prof = professions.find(e => e.id === character.professionId)
-
-        return prof.characterProfession.toLowerCase()
-    }
-
-
-
     const displayTraits = (index) =>{
 
         const traitArr = [
@@ -139,9 +131,32 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     const controlInput = (event) =>{
         let target = {...character}
 
+        
+
         target[event.target.id] = event.target.value
 
         updateCharacter(target)
+    }
+
+    const rerollQuirk = (event) =>{
+        console.log("event", event.target.innerHTML)
+        let temp = [...quirks]
+        console.log("before", temp)
+        const promises = [getFragment(1), getMultiple(2)]
+
+        Promise.all(promises).then( res => {
+            
+            for(let i = 0; i < temp.length; i++)
+            {
+                if(temp[i].includes(event.target.innerHTML) )
+                {
+                    temp[i] = `${res[1][0].characterQuirk} ${res[0][0].fragmentTwo} ${res[1][1].characterQuirk}`
+                    console.log("temp after change", temp[i])
+                }
+            }
+            
+        }).then(() => updateQuirks(temp))
+        
     }
 
 
@@ -149,9 +164,12 @@ export const NewCharacter = ({getLoggedInUser}) =>{
 
         const quirkArr = []
         return (
+            <>
             <ul>
-                {quirks?.map((q) => <li>{q}</li>)}
+                {quirks?.map((q) => <li id={q.id} onClick={(e) => rerollQuirk(e)} style={{cursor: 'pointer'}}>{q}</li>)}
             </ul>
+            <div style={{textAlign: 'center'}}>(<em>click each quirk to reroll</em>)</div>
+            </>
         )
     }
 
