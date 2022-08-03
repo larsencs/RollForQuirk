@@ -6,6 +6,7 @@ The internet is full of character generators for Dungeons and Dragons, as well a
 # Features
 <ol>
 <li>Generates multiple different trait categories at random</li>
+<li>Reroll individual traits and quirks in order to fine tune the character</li>
 <li>Allows for the saving of characters for future use</li>
 <li>Clean, distraction-free UI</li>
 </ol>
