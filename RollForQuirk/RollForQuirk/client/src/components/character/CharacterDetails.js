@@ -16,6 +16,12 @@ export const CharacterDetails = ({character, isOpen, updateIsOpen, updateEdit, e
           <ModalHeader><h3>{character.characterName}</h3></ModalHeader>          
 
           <ModalBody>
+            <div>
+            <p><strong>Race: </strong> {character.characterRace.characterRace}</p>
+            <p><strong>Class: </strong> {character.characterProfession.characterProfession}</p>
+            <p><strong>Alignment: </strong>{character.characterAlignment.characterAlignment}</p>
+            </div>
+            <div className="border-div"></div>
             <div id="modal-trait-div" className="modal-div">
             <h4>Traits</h4>
               <p><strong>Flaw: </strong>{character.flaw.flawCharacteristic}</p>

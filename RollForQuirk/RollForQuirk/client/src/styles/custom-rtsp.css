@@ -21,8 +21,8 @@
   padding: 20px;
   margin-top: 5px;
   margin-bottom: 5px;
-  border-left: 3px solid red;
-  border-right: 3px solid red;
+  border-left: 3px solid #ac0000;
+  border-right: 3px solid #ac0000;
 }
 .new-char-sheet label {
   margin: 5px;
@@ -102,6 +102,6 @@ h3 {
 .character-modal .border-div {
   text-align: center;
   padding-bottom: 5px;
-  background: linear-gradient(to left, white 0%, red 50%, white 100%) left bottom #777 no-repeat;
+  background: linear-gradient(to left, white 0%, #ac0000 50%, white 100%) left bottom #777 no-repeat;
   background-size: 100% 5px; /* if linear-gradient, we need to resize it */
 }/*# sourceMappingURL=custom-rtsp.css.map */
