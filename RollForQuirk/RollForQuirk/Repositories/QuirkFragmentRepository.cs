@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using RollForQuirk.Models;
 using RollForQuirk.Utils;
+using System.Collections.Generic;
 
 namespace RollForQuirk.Repositories
 {
@@ -10,9 +11,9 @@ namespace RollForQuirk.Repositories
         {
         }
 
-        public QuirkFragment GetRandom()
+        public List<QuirkFragment> GetRandom(int index)
         {
-
+            var quirkList = new List<QuirkFragment>();
 
             using (var conn = Connection)
             {
@@ -20,25 +21,30 @@ namespace RollForQuirk.Repositories
 
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT TOP 1 Id, FragmentOne, FragmentTwo
+                    cmd.CommandText = @"SELECT TOP (@index) Id, FragmentOne, FragmentTwo
                                         FROM QuirkFragment
                                         ORDER BY NEWID()";
 
-                    var reader = cmd.ExecuteReader();
+                    cmd.Parameters.AddWithValue("@index", index);
 
-                    if (reader.Read())
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        var quirkFragment = new QuirkFragment()
+                        while (reader.Read())
                         {
-                            Id = DbUtils.GetNullableInt(reader, "Id"),
-                            FragmentOne = DbUtils.GetNullableString(reader, "FragmentOne"),
-                            FragmentTwo = DbUtils.GetNullableString(reader, "FragmentTwo")
-                        };
-                        return quirkFragment;
+                            var quirkFragment = new QuirkFragment()
+                            {
+                                Id = DbUtils.GetNullableInt(reader, "Id"),
+                                FragmentOne = DbUtils.GetNullableString(reader, "FragmentOne"),
+                                FragmentTwo = DbUtils.GetNullableString(reader, "FragmentTwo")
+                            };
+                            quirkList.Add(quirkFragment);
+                        }
                     }
-                    return null;
+
                 }
             }
+
+            return quirkList;
 
 
         }

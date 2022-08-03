@@ -15,10 +15,10 @@ namespace RollForQuirk.Controllers
             this._quirkFragmentRepository = quirkFragmentRepository;
         }
 
-        [HttpGet]
-        public IActionResult GetRandom()
+        [HttpGet("{index}")]
+        public IActionResult GetRandom(int index)
         { 
-            var fragment = _quirkFragmentRepository.GetRandom();
+            var fragment = _quirkFragmentRepository.GetRandom(index);
             return Ok(fragment);
         }
     }

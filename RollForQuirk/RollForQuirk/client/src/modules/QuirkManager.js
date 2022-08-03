@@ -12,3 +12,7 @@ export const getTwoQuirks = () =>{
 export const getFragment = () =>{
     return fetch(fragmentUrl).then(res => res.json())
 }
+
+export const getMultiple = (index) =>{
+    return fetch(`${quirlUrl}/GetMultiple/${index}`).then(res => res.json())
+}

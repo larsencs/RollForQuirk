@@ -8,7 +8,7 @@ import { getAllRaces } from "../../modules/RaceManager"
 import { getFear, getFlaw, getStress } from "../../modules/TraitManager"
 import { getCatalyst } from "../../modules/CatalystManager"
 import { getDrive, getDriveFragment } from "../../modules/DriveManager"
-import { getFragment, getTwoQuirks } from "../../modules/QuirkManager"
+import { getFragment, getTwoQuirks, getMultiple } from "../../modules/QuirkManager"
 import {Button} from "reactstrap"
 
 export const NewCharacter = ({getLoggedInUser}) =>{
@@ -66,15 +66,17 @@ export const NewCharacter = ({getLoggedInUser}) =>{
         let fragment = {}
         let quirk = []
         const promises = []
+
+        
         
 
-        for(let i = 0; i< 3; i++)
-        {
+        // for(let i = 0; i< 3; i++)
+        // {
 
-            promises.push(getFragment().then(res => fragment=res),
-                getTwoQuirks().then(res => quirk=res).then(() => quirkArr.push(`${quirk[0].characterQuirk} ${fragment.fragmentTwo} ${quirk[1].characterQuirk}`)))
-        }
-            Promise.all(promises).then(() => updateQuirks(quirkArr))
+        //     promises.push(getFragment().then(res => fragment=res),
+        //         getTwoQuirks().then(res => quirk=res).then(() => quirkArr.push(`${quirk[0].characterQuirk} ${fragment.fragmentTwo} ${quirk[1].characterQuirk}`)))
+        // }
+        //     Promise.all(promises).then(() => updateQuirks(quirkArr))
         
         
     }
@@ -133,7 +135,7 @@ export const NewCharacter = ({getLoggedInUser}) =>{
         const quirkArr = []
         return (
             <ul>
-                {quirks?.map((q) => <li>{q}</li>)}
+                {quirks?.map((q) => <li>{q} <button>Reroll</button></li>)}
             </ul>
         )
     }
