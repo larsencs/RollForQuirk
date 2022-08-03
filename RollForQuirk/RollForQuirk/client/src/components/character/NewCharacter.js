@@ -62,22 +62,37 @@ export const NewCharacter = ({getLoggedInUser}) =>{
     }
     const quirkArr = []
 
+    //values are hard-coded for the time being, but function is designed for scalability
     const generateQuirks = () =>{
-        let fragment = {}
-        let quirk = []
-        const promises = []
 
+        let promises = [getFragment(3), getMultiple(6)]
         
-        
+        Promise.all(promises)
+            .then(res => {
 
-        // for(let i = 0; i< 3; i++)
-        // {
+                let fragments = res[0]
+                let quirks = res[1]
+                let sentences = []
 
-        //     promises.push(getFragment().then(res => fragment=res),
-        //         getTwoQuirks().then(res => quirk=res).then(() => quirkArr.push(`${quirk[0].characterQuirk} ${fragment.fragmentTwo} ${quirk[1].characterQuirk}`)))
-        // }
-        //     Promise.all(promises).then(() => updateQuirks(quirkArr))
-        
+                for(let i = 0; i < 3; i++)
+                {
+                    let quirkArr = []
+
+                    for(let j = 0; j < 2; j++)
+                    {
+                        quirkArr.push(quirks.pop())
+                    }
+
+                    let fragment = fragments.pop()
+
+                    let sentence = `${quirkArr[0].characterQuirk} ${fragment.fragmentTwo} ${quirkArr[1].characterQuirk}`
+
+                    sentences.push(sentence)
+                }
+
+                updateQuirks(sentences)
+            })
+       
         
     }
 
@@ -135,7 +150,7 @@ export const NewCharacter = ({getLoggedInUser}) =>{
         const quirkArr = []
         return (
             <ul>
-                {quirks?.map((q) => <li>{q} <button>Reroll</button></li>)}
+                {quirks?.map((q) => <li>{q}</li>)}
             </ul>
         )
     }

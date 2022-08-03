@@ -9,10 +9,11 @@ export const getTwoQuirks = () =>{
     return fetch(`${quirkUrl}/GetTwoRandom`).then(res => res.json())
 }
 
-export const getFragment = () =>{
-    return fetch(fragmentUrl).then(res => res.json())
+export const getFragment = (index) =>{
+    return fetch(`${fragmentUrl}/${index}`).then(res => res.json())
 }
 
 export const getMultiple = (index) =>{
-    return fetch(`${quirlUrl}/GetMultiple/${index}`).then(res => res.json())
+    return fetch(`${quirkUrl}/GetMultiple/${index}`)
+        .then(res => res.json())
 }
