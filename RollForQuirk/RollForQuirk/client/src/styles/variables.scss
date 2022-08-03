@@ -1,1 +1,8 @@
 $breakpoints: ('mobile' : 320px, 'tablet' : 740px);
+
+@mixin dungeonFont {
+    font-family: 'Dungeon';
+    src: url('/public/fonts/DUNGRG__.TTF');
+    font-weight: normal;
+    font-style: normal;
+}
