@@ -33,5 +33,13 @@ namespace RollForQuirk.Controllers
 
             return Ok(quirks);
         }
+
+        [HttpGet("[action]/{index}")]
+        public IActionResult GetMultiple(int index)
+        {
+            var quirks = _quirkRepository.GetMultipleQuirks(index);
+
+            return Ok(quirks);
+        }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using RollForQuirk.Models;
+using System.Collections.Generic;
 
 namespace RollForQuirk.Repositories
 {
     public interface IQuirkFragmentRepository
     {
-        QuirkFragment GetRandom();
+        List<QuirkFragment> GetRandom(int index);
     }
 }
