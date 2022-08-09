@@ -19,7 +19,7 @@ INSERT INTO [dbo].[Catalyst] ([Id], [DriveCatalyst]) VALUES (5, N'a pathological
 INSERT INTO [dbo].[Catalyst] ([Id], [DriveCatalyst]) VALUES (6, N'the patriarchy')
 INSERT INTO [dbo].[Catalyst] ([Id], [DriveCatalyst]) VALUES (7, N'the matriarchy')
 INSERT INTO [dbo].[Catalyst] ([Id], [DriveCatalyst]) VALUES (8, N'the coming of the great red flood')
-INSERT INTO [dbo].[Catalyst] ([Id], [DriveCatalyst]) VALUES (9, N'a crippling drug addiction')
+INSERT INTO [dbo].[Catalyst] ([Id], [DriveCatalyst]) VALUES (9, N'their crippling drug addiction')
 INSERT INTO [dbo].[Catalyst] ([Id], [DriveCatalyst]) VALUES (10, N'an angry god')
 INSERT INTO [dbo].[Catalyst] ([Id], [DriveCatalyst]) VALUES (1003, N'a band of vengeful elves that are seeking retribution against them')
 INSERT INTO [dbo].[Catalyst] ([Id], [DriveCatalyst]) VALUES (1004, N'an excessively randy dwarven female')
@@ -32,6 +32,7 @@ INSERT INTO [dbo].[Catalyst] ([Id], [DriveCatalyst]) VALUES (1010, N'gnomes')
 INSERT INTO [dbo].[Catalyst] ([Id], [DriveCatalyst]) VALUES (1011, N'overly friendly and inquisitive squirrels')
 INSERT INTO [dbo].[Catalyst] ([Id], [DriveCatalyst]) VALUES (1012, N'an estranged lover')
 SET IDENTITY_INSERT [dbo].[Catalyst] OFF
+
 
 SET IDENTITY_INSERT [dbo].[Character] ON
 INSERT INTO [dbo].[Character] ([Id], [CharacterName], [ProfessionId], [RaceId], [AlignmentId], [StressId], [FearId], [FlawId], [UserProfileId], [CharacterDrive], [QuirkOne], [QuirkTwo], [QuirkThree]) VALUES (1005, N'Betty', 4, 2, 5, 24, 11, 23, 2, N'Be like the heroes of old , because of ''The Mothia'': a corrupt family of moths hellbent on controlling all moth-related crime in their city', N'you think you are a powerful wizard and you will one day invent time travel', N'you are a wizard and also your weapon(s) talk to you', N'you clip your toenails in public because you rolled a one')
@@ -78,25 +79,30 @@ INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1026, N'kill their spouse
 INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1027, N'kill their brother')
 INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1028, N'kill their sister')
 INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1029, N'write a book')
+INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1030, N'save a specific person')
+INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1031, N'save a race of people')
+INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1032, N'save a noble')
+INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1033, N'save their spouse')
+INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1034, N'save their brother')
+INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1035, N'save their sister')
+INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1036, N'make dinner')
+INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1037, N'return home')
+INSERT INTO [dbo].[Drive] ([Id], [DriveTrait]) VALUES (1038, N'take revenge on an NPC')
 SET IDENTITY_INSERT [dbo].[Drive] OFF
+
 
 SET IDENTITY_INSERT [dbo].[DriveFragment] ON
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1, NULL, N'as their family was killed by')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (2, NULL, N'because of')
-INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (3, NULL, N'because they have been hired by')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (4, NULL, N'because they are running from')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (5, NULL, N'because they are seeking')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (6, NULL, N'because they want to destroy')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (7, NULL, N'because of their love for')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1003, NULL, N'and they are hindered by')
-INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1004, NULL, N'and they don''t know')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1005, NULL, N'and they are haunted by')
-INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1006, NULL, N'and they cannot speak about')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1007, NULL, N'and they are compelled by')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1008, NULL, N'because they believe in')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1009, NULL, N'because they believe in the power of')
-INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1010, NULL, N'and they will not speak about')
-INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1011, NULL, N'because they will not speak about')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1012, NULL, N'as they were exiled because of')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1013, NULL, N'while they are pursued by')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1014, NULL, N'but they are always interrupted by')
@@ -104,6 +110,7 @@ INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1016, NULL, N'all while constantly rambling about')
 INSERT INTO [dbo].[DriveFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1017, NULL, N'but they struggle with grief over')
 SET IDENTITY_INSERT [dbo].[DriveFragment] OFF
+
 
 SET IDENTITY_INSERT [dbo].[Fear] ON
 INSERT INTO [dbo].[Fear] ([Id], [FearCharacteristic]) VALUES (1, N'Abandonment')
@@ -161,6 +168,7 @@ INSERT INTO [dbo].[Fear] ([Id], [FearCharacteristic]) VALUES (52, N'Thunder')
 INSERT INTO [dbo].[Fear] ([Id], [FearCharacteristic]) VALUES (53, N'Violence')
 INSERT INTO [dbo].[Fear] ([Id], [FearCharacteristic]) VALUES (54, N'Drowning')
 SET IDENTITY_INSERT [dbo].[Fear] OFF
+
 
 SET IDENTITY_INSERT [dbo].[Flaw] ON
 INSERT INTO [dbo].[Flaw] ([Id], [FlawCharacteristic]) VALUES (1, N'Spiteful')
@@ -283,25 +291,14 @@ SET IDENTITY_INSERT [dbo].[Quirk] OFF
 
 SET IDENTITY_INSERT [dbo].[QuirkFragment] ON
 INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1, NULL, N'because')
-INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (2, NULL, N'and yet')
 INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (3, NULL, N'even though')
-INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (4, NULL, N'in spite of the fact')
-INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (5, NULL, N'and yet')
-INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (6, NULL, N'and also')
 INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (7, NULL, N'and')
 INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (8, NULL, N'but')
-INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (9, NULL, N'but no one nows how badly')
-INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (10, NULL, N'and no one can know')
 INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (11, NULL, N'and everyone should know')
-INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1006, NULL, N'so')
 INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1007, NULL, N'but no one knows that')
-INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1008, NULL, N'as if')
-INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1009, NULL, N'as long as')
-INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1010, NULL, N'so that')
-INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1011, NULL, N'in case')
 INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1012, NULL, N'since')
-INSERT INTO [dbo].[QuirkFragment] ([Id], [FragmentOne], [FragmentTwo]) VALUES (1013, NULL, N'until')
 SET IDENTITY_INSERT [dbo].[QuirkFragment] OFF
+
 
 SET IDENTITY_INSERT [dbo].[Race] ON
 INSERT INTO [dbo].[Race] ([Id], [CharacterRace]) VALUES (1, N'Dragonborn')
